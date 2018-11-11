@@ -4,7 +4,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <p>Rentier app  diploma</p>
+        <p>Rentier app version 0.01  diploma</p>
       </div>
     );
   }
