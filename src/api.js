@@ -5,14 +5,14 @@ class API {
     this.baseURL = apiURL
   }
 
-  login(onSuccess, onError, user){
-    return axios.post(`${this.baseURL}/login/`,
-    user)
-      .then(res => {
-        onSuccess(res.data, user)
-      }).catch(error => {
-        onError(error, user)
-      })
+  login(user){
+    console.log(user)
+    // return axios.post(`${this.baseURL}/login/`,
+    // user)
+    //   .then(res => {
+    //     // onSuccess(res.data, user)
+    //   }).catch(error => {
+    //   })
   }
 }
 
