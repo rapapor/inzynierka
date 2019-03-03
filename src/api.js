@@ -6,7 +6,12 @@ class API {
   }
 
   login(user){
-    console.log(user)
+    let res = {
+      name: 'Jon Doe',
+      token: '1234',
+      user_type: 'rentier'
+    }
+    return res
     // return axios.post(`${this.baseURL}/login/`,
     // user)
     //   .then(res => {

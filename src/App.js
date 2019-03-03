@@ -1,25 +1,32 @@
 import React, { Component } from 'react';
-import logo from './assets/images/logo.jpg'
+
 
 import LoginPages from './pages/login'
+
+import Menu from './containers/menu'
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      pages: 'loginPages'
+      currentPage: 'loginPages',
+      userInfo: {}
     }
   }
 
-  setPages(actualPages) {
-    this.setState({ pages: actualPages})
+  setPages = (setPages) => {
+    this.setState({ currentPage: setPages})
+  }
+
+  setUserInfo = (userInfo) => {
+    this.setState({ userInfo: userInfo})
   }
 
   renderPages = () => {
-    const { pages } = this.state
-    switch(pages) {
+    const { currentPage } = this.state
+    switch(currentPage) {
       case 'loginPages':
-        return <LoginPages />;
+        return <LoginPages setUserInfo={this.setUserInfo} setPages={this.setPages}/>;
       case 'dashboard':
         return <div>temp dashboard mock</div>// <Dashboard />
       default:
@@ -28,8 +35,10 @@ class App extends Component {
   }
 
   render() {
+    const { currentPage } = this.state
     return (
       <React.Fragment>
+        {currentPage !== 'loginPages' && <Menu setPages={this.setPages} />}
         {this.renderPages()}
       </React.Fragment>
     );
