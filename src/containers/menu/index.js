@@ -9,7 +9,7 @@ import invoice from './../../assets/images/ico-btn/ikony_all-15.png'
 import check from './../../assets/images/ico-btn/ikony_all-13.png'
 import options from './../../assets/images/ico-btn/ikony_all-03.png'
 
-import logo from './../../assets/images/logo.jpg'
+import logo from './../../assets/images/logos/logo-01.png'
 
 import MenuButton from './../../components/menuButton'
 class Menu extends Component {
@@ -28,7 +28,7 @@ class Menu extends Component {
     return (
       <section className='menu-container'>
         <div className='logo-container'>
-          <img width='40px' src={logo} />
+          <img src={logo} />
         </div>
         <MenuButton icon={startIcon} label={'Start'} onClick={() => this.goTo('loginPages')} />
         <MenuButton icon={houseIcon} label={'Twoje nieruchomości'} onClick={() => this.goTo('loginPages')} />
