@@ -29,6 +29,18 @@ class App extends Component {
         return <LoginPages setUserInfo={this.setUserInfo} setPages={this.setPages}/>;
       case 'dashboard':
         return <div>temp dashboard mock</div>// <Dashboard />
+      case 'immovables':
+        return <div>temp immovables mock</div>// <immovables />
+      case 'advertisements':
+        return <div>temp advertisements mock</div>// <advertisements />
+      case 'tenant':
+        return <div>temp tenant mock</div>// <tenant />
+      case 'invoice':
+        return <div>temp invoice mock</div>// <invoice />
+      case 'checkPages':
+        return <div>temp checkPages mock</div>// <checkPages />
+      case 'options':
+        return <div>temp options mock</div>// <options />
       default:
         return <LoginPages />;
     }
@@ -38,7 +50,7 @@ class App extends Component {
     const { currentPage } = this.state
     return (
       <React.Fragment>
-        {currentPage !== 'loginPages' && <Menu setPages={this.setPages} />}
+        {currentPage !== 'loginPages' && <Menu globalState={this.state} setPages={this.setPages} />}
         {this.renderPages()}
       </React.Fragment>
     );

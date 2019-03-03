@@ -25,18 +25,19 @@ class Menu extends Component {
 
   
   render(){
+    const { globalState: { currentPage } } = this.props
     return (
       <section className='menu-container'>
         <div className='logo-container'>
-          <img src={logo} />
+          <a href='/'><img src={logo} alt='logo'/></a>
         </div>
-        <MenuButton icon={startIcon} label={'Start'} onClick={() => this.goTo('loginPages')} />
-        <MenuButton icon={houseIcon} label={'Twoje nieruchomości'} onClick={() => this.goTo('loginPages')} />
-        <MenuButton icon={ad} label={'Ogłoszenia'} onClick={() => this.goTo('loginPages')} />
-        <MenuButton icon={tenant} label={'Najemcy'} onClick={() => this.goTo('loginPages')} />
-        <MenuButton icon={invoice} label={'Faktury'} onClick={() => this.goTo('loginPages')} />
-        <MenuButton icon={check} label={'Rachunki i zuzycia'} onClick={() => this.goTo('loginPages')} />
-        <MenuButton icon={options} label={'Ustawienia'} onClick={() => this.goTo('loginPages')} />
+        <MenuButton icon={startIcon} label={'Start'} onClick={() => this.goTo('dashboard')} active={currentPage === 'dashboard' ? true : false}/>
+        <MenuButton icon={houseIcon} label={'Twoje nieruchomości'} onClick={() => this.goTo('immovables')} active={currentPage === 'immovables' ? true : false}/>
+        <MenuButton icon={ad} label={'Ogłoszenia'} onClick={() => this.goTo('advertisements')} active={currentPage === 'advertisements' ? true : false}/>
+        <MenuButton icon={tenant} label={'Najemcy'} onClick={() => this.goTo('tenant')} active={currentPage === 'tenant' ? true : false}/>
+        <MenuButton icon={invoice} label={'Faktury'} onClick={() => this.goTo('invoice')} active={currentPage === 'invoice' ? true : false}/>
+        <MenuButton icon={check} label={'Rachunki i zuzycia'} onClick={() => this.goTo('checkPages')} active={currentPage === 'checkPages' ? true : false}/>
+        <MenuButton icon={options} label={'Ustawienia'} onClick={() => this.goTo('options')} active={currentPage === 'options' ? true : false}/>
       </section>
     )
   }
