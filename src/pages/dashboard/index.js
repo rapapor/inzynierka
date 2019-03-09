@@ -6,7 +6,7 @@ class Dashboard extends Component {
     return (
       <section>
         <header></header>
-        <main></main>
+        <main><p>dashboard</p></main>
         <footer></footer>
       </section>
     )

@@ -7,7 +7,7 @@ class LoginPages extends Component {
     return (
       <div className='login-pages'>
         <div className='login-container'>
-          <LoginForm setUserInfo={this.props.setUserInfo} setPages={this.props.setPages} />
+          <LoginForm />
         </div>
       </div>
     )

@@ -3,7 +3,7 @@ import './style.sass'
 
 const MenuButton = ({ label, onClick, icon, active }) => {
   return (
-    <div className={`menu-button ${active === true ? 'active' : ''}`} onClick={onClick}>
+    <div className='menu-button'>
       {icon && <img src={icon} alt='btn-icon'/>}
       {label}
     </div>

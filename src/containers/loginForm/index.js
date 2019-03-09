@@ -23,15 +23,13 @@ class LoginForm extends Component {
 
   confirmLogIn = () => {
     const { login, password } = this.state
-    const { setUserInfo, setPages } = this.props
     const user = {
       login: login,
       password: password
     }
     const response = api.login(user)
-    setUserInfo(response)
     if (response.user_type) {
-      setPages('dashboard')
+      document.location.pathname = '/start/'
     }
 
   }

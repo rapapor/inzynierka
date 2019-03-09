@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React from 'react'
+import {  NavLink } from "react-router-dom";
 import './style.sass'
 
 import startIcon from './../../assets/images/ico-btn/ikony_all-04.png'
@@ -12,35 +13,19 @@ import options from './../../assets/images/ico-btn/ikony_all-03.png'
 import logo from './../../assets/images/logos/logo-01.png'
 
 import MenuButton from './../../components/menuButton'
-class Menu extends Component {
-  constructor(props) {
-    super(props)
-    
-  }
 
-  goTo = (direction) => {
-    const { setPages } = this.props
-    setPages(direction)
-  }
-
-  
-  render(){
-    const { globalState: { currentPage } } = this.props
-    return (
-      <section className='menu-container'>
-        <div className='logo-container'>
-          <a href='/'><img src={logo} alt='logo'/></a>
-        </div>
-        <MenuButton icon={startIcon} label={'Start'} onClick={() => this.goTo('dashboard')} active={currentPage === 'dashboard' ? true : false}/>
-        <MenuButton icon={houseIcon} label={'Twoje nieruchomości'} onClick={() => this.goTo('immovables')} active={currentPage === 'immovables' ? true : false}/>
-        <MenuButton icon={ad} label={'Ogłoszenia'} onClick={() => this.goTo('advertisements')} active={currentPage === 'advertisements' ? true : false}/>
-        <MenuButton icon={tenant} label={'Najemcy'} onClick={() => this.goTo('tenant')} active={currentPage === 'tenant' ? true : false}/>
-        <MenuButton icon={invoice} label={'Faktury'} onClick={() => this.goTo('invoice')} active={currentPage === 'invoice' ? true : false}/>
-        <MenuButton icon={check} label={'Rachunki i zuzycia'} onClick={() => this.goTo('checkPages')} active={currentPage === 'checkPages' ? true : false}/>
-        <MenuButton icon={options} label={'Ustawienia'} onClick={() => this.goTo('options')} active={currentPage === 'options' ? true : false}/>
-      </section>
-    )
-  }
+const Menu = () => {
+  return (
+    <section className='menu-container'>
+      <NavLink to='/'><div className='logo-container'><img src={logo} alt='logo'/></div></NavLink>
+      <NavLink activeClassName='border-active' to='/start/'><MenuButton icon={startIcon} label={'Start'} /></NavLink>
+      <NavLink activeClassName='border-active' to='/'><MenuButton icon={houseIcon} label={'Twoje nieruchomości'} /></NavLink>
+      <NavLink activeClassName='border-active' to='/'><MenuButton icon={ad} label={'Ogłoszenia'} /></NavLink>
+      <NavLink activeClassName='border-active' to='/'><MenuButton icon={tenant} label={'Najemcy'} /></NavLink>
+      <NavLink activeClassName='border-active' to='/'><MenuButton icon={invoice} label={'Faktury'} /></NavLink>
+      <NavLink activeClassName='border-active' to='/'><MenuButton icon={check} label={'Rachunki i zuzycia'} /></NavLink>
+      <NavLink activeClassName='border-active' to='/'><MenuButton icon={options} label={'Ustawienia'} /></NavLink>
+    </section>
+  )
 }
-
 export default Menu

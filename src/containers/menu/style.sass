@@ -13,3 +13,20 @@
     img
       height: 80px
       width: 120px
+  a
+    text-decoration: none
+    color: black
+
+  a 
+    &.border-active:active, &.border-active:hover, &.border-active:focus
+      border-width: 3px
+      border-style: solid
+      -moz-border-image: -moz-linear-gradient(right, green 0%, lightgreen 100%, green 0%)
+      -webkit-border-image: -webkit-linear-gradient(right, green 0%, lightgreen 100%, green 0%)
+      border-image: linear-gradient(to right, green 0%, lightgreen 100%, green 0%)
+      -webkit-border-image-slice: 2
+      border-image-slice: 2
+      border-top: 0px
+      border-left: 0px
+      border-right: 0px
+  
