@@ -17,7 +17,7 @@ import MenuButton from './../../components/menuButton'
 const Menu = () => {
   return (
     <section className='menu-container'>
-      <NavLink to='/'><div className='logo-container'><img src={logo} alt='logo'/></div></NavLink>
+      <NavLink to='/login'><div className='logo-container'><img src={logo} alt='logo'/></div></NavLink>
       <NavLink activeClassName='border-active' to='/start/'><MenuButton icon={startIcon} label={'Start'} /></NavLink>
       <NavLink activeClassName='border-active' to='/'><MenuButton icon={houseIcon} label={'Twoje nieruchomości'} /></NavLink>
       <NavLink activeClassName='border-active' to='/'><MenuButton icon={ad} label={'Ogłoszenia'} /></NavLink>

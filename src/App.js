@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route } from "react-router-dom"
+import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom"
 
 
 import LoginPages from './pages/login'
@@ -11,21 +11,36 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      userInfo: {}
+      userInfo: {},
     }
   }
 
   render() {
     return (
       <Router>
-        <React.Fragment>
-          {document.location.pathname !== '/' && <Menu />}
-          <Route path='/' exact component={LoginPages} />
-          <Route path='/start/' component={Dashboard} />
-        </React.Fragment>
+        <Switch>
+          <Route exact path="/(login)" component={LoginContainer}/>
+          <Route component={DefaultContainer}/>
+        </Switch>
       </Router>
-    );
+    )
   }
 }
 
 export default App;
+
+const LoginContainer = () => (
+  <div className="container">
+    <Route exact path="/" render={() => <Redirect to="/login" />} />
+    <Route path="/login" component={LoginPages} />
+  </div>
+)
+
+const DefaultContainer = () => (
+  <div>
+  <div className="container">
+    <Menu />
+    <Route path="/start/" component={Dashboard} />
+  </div>
+  </div>
+)
