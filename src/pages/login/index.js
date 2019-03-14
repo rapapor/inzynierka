@@ -7,7 +7,7 @@ class LoginPages extends Component {
     return (
       <div className='login-pages'>
         <div className='login-container'>
-          <LoginForm />
+          <LoginForm setToken={this.props.setToken}/>
         </div>
       </div>
     )

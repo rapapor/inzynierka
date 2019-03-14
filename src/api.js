@@ -1,29 +1,43 @@
 import axios from 'axios';
 
 class API {
-  constructor(sessionId, apiURL) {
+  constructor(apiURL) {
     this.baseURL = apiURL
+    this.state = {
+      token: '',
+    }
   }
 
+
   login(user){
-    let res = {
-      name: 'Jon Doe',
-      token: '1234',
-      user_type: 'rentier'
-    }
-    return res
-    // return axios.post(`${this.baseURL}/login/`,
-    // user)
-    //   .then(res => {
-    //     // onSuccess(res.data, user)
-    //   }).catch(error => {
-    //   })
+    return axios.post(`${this.baseURL}/auth/`,
+    user)
+      .then(res => {
+        return res.data
+      }).catch(error => {
+        console.log(error)
+      })
+  }
+
+  getFlatsList(token){
+    return axios.post(`${this.baseURL}/flats/`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer' + token
+      }
+    })
+      .then(res => {
+        return res.data
+      }).catch(error => {
+        console.log(error)
+      })
+
   }
 }
 
 
 function createAPI() {
-  const apiURL = 'url do api'
+  const apiURL = 'https://ffr-api.herokuapp.com'
   return new API(apiURL);
 }
 const api = createAPI();
