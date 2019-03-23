@@ -6,8 +6,7 @@ import './style.sass'
 class Dashboard extends Component {
 
   componentDidMount(){
-    const { globalState } = this.props
-    console.log(localStorage.getItem('token'))
+    // const { globalState } = this.props
     var token = localStorage.getItem('token')
     api.getFlatsList(token).then(res => {
       console.log(res)

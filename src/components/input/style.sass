@@ -18,7 +18,7 @@
       border-color: #1b75bb
   label
     color: #999
-    font-size: 12px
+    font-size: 14px
     font-weight: normal
     position: absolute
     pointer-events: none
@@ -31,7 +31,7 @@
   input:focus + label
     outline: none
     top: -20px
-    font-size: 8px
+    font-size: 10px
     color: #5264AE
   &.filled
     label
@@ -39,5 +39,14 @@
       top: -20px
       font-size: 8px
       color: #5264AE
+  .error-valid
+    display: none
+    color: red
+    &.show
+      display: block
+      position: absolute
+      font-size: 10px
+      top: 30px
+      left: 50px
 
     
