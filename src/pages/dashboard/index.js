@@ -7,7 +7,9 @@ class Dashboard extends Component {
 
   componentDidMount(){
     const { globalState } = this.props
-    api.getFlatsList(globalState.token).then(res => {
+    console.log(localStorage.getItem('token'))
+    var token = localStorage.getItem('token')
+    api.getFlatsList(token).then(res => {
       console.log(res)
     }).catch(error => {
       console.log(error)
