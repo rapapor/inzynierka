@@ -14,12 +14,13 @@ class LoginForm extends Component {
     this.state = {
       login: '',
       password: '',
+      filledEmail: '',
     }
   }
 
   handleChange = () => {
-    this.setState({ login: this.loginInput.current.value })
-    this.setState({ password: this.passInput.current.value })
+    this.setState({ login: this.loginInput.current.value})
+    this.setState({ password: this.passInput.current.value})
   }
 
   confirmLogIn = () => {
@@ -27,10 +28,11 @@ class LoginForm extends Component {
     const { setToken } = this.props
     const user = {
       username: login,
-      password: password
+      password: password,
     }
     api.login(user).then(res => {
       setToken(res.token)
+      window.location.replace('/start/')
     }).catch(error => {
       console.log(error)
     })
@@ -40,29 +42,33 @@ class LoginForm extends Component {
       return (
       <Redirect to="/start/" />
     )
-    }else {
-      return (
-        <div className='login-form'>
-        <Input
-          placeholder={'Użytkownik'}
-          onChange={this.handleChange}
-          refs={this.loginInput}
-        />
-        <Input
-          placeholder={'Hasło'}
-          onChange={this.handleChange}
-          refs={this.passInput}
-          type={'password'}
-        />
-        <Button
-          label={'Zaloguj'}
-          type={'accept'}
-          onClick={this.confirmLogIn}
-        />
+  }
+    return (
+      <div className='login-form'>
+        <div className='login-form-input-content'>
+          <Input
+            placeholder={'Użytkownik'}
+            onChange={this.handleChange}
+            refs={this.loginInput}
+            value={this.state.login}
+          />
+          <Input
+            placeholder={'Hasło'}
+            onChange={this.handleChange}
+            refs={this.passInput}
+            type={'password'}
+            value={this.state.password}
+          />
         </div>
-      )
-    }
+      <Button
+        label={'Zaloguj'}
+        type={'accept'}
+        onClick={this.confirmLogIn}
+      />
+      </div>
+    )
   }
 }
+
 
 export default LoginForm

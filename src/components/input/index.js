@@ -2,17 +2,19 @@ import React from 'react';
 
 import './style.sass'
 
-const input = ({ disabled, placeholder, onChange, refs, type }) => {
+const input = ({ disabled, placeholder, onChange, refs, type, value }) => {
   return (
-    <input
-      className={`base-input`}
-      disabled={disabled}
-      placeholder={placeholder}
-      onChange={onChange}
-      type={type}
-      ref={refs}
-    >
-    </input>
+    <div className={`input-container ${value !=='' ? 'filled' : ''}`}>
+      <input
+        className={`base-input`}
+        disabled={disabled}
+        onChange={onChange}
+        type={type}
+        ref={refs}
+      >
+      </input>
+      <label>{placeholder}</label>
+    </div>
   )
 }
 

@@ -23,7 +23,7 @@ class API {
     return axios.post(`${this.baseURL}/flats/`, {
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer' + token
+        'Authorization': 'Bearer ' + token
       }
     })
       .then(res => {
@@ -31,7 +31,6 @@ class API {
       }).catch(error => {
         console.log(error)
       })
-
   }
 }
 

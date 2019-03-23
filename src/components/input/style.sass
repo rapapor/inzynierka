@@ -1,7 +1,43 @@
 
+.input-container
+  position: relative
+  margin-bottom: 45px
+  width: 100%
+  display: flex
+  justify-content: center
+  align-items: center
+  .base-input
+    padding: 5px
+    font-size: 16px
+    border: 0
+    outline: 0
+    background: transparent
+    border-bottom: 1px solid #e6e7e8
+    width: 70%
+    &:focus
+      border-color: #1b75bb
+  label
+    color: #999
+    font-size: 12px
+    font-weight: normal
+    position: absolute
+    pointer-events: none
+    left: 55px
+    top: 10px
+    transition: 0.2s ease all
+    -moz-transition: 0.2s ease all
+    -webkit-transition: 0.2s ease all
 
-.base-input
-  padding: 5px
-  font-size: 16px
-  border-radius: 7px
-  width: 60%
+  input:focus + label
+    outline: none
+    top: -20px
+    font-size: 8px
+    color: #5264AE
+  &.filled
+    label
+      outline: none
+      top: -20px
+      font-size: 8px
+      color: #5264AE
+
+    
