@@ -87,6 +87,7 @@ class LoginForm extends Component {
         label={'Zaloguj'}
         type={'accept'}
         onClick={this.confirmLogIn}
+        customStyle={{width: '200px'}}
       />
       </div>
     )

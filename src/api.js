@@ -20,7 +20,7 @@ class API {
   }
 
   getFlatsList(token){
-    return axios.post(`${this.baseURL}/flats/`, {
+    return axios.get(`${this.baseURL}/flats`, {
       headers: {
         'Content-Type': 'application/json;charset=UTF-8',
         'Access-Control-Allow-Origin': '*', 
