@@ -18,14 +18,14 @@ const Menu = () => {
   return (
     <section className='menu-container'>
       <NavLink to='/logout/'><div className='logo-container'><img src={logo} alt='logo'/></div></NavLink>
-      <NavLink activeClassName='border-active' to='/start/'><MenuButton icon={startIcon} label={'Start'} /></NavLink>
-      <NavLink activeClassName='border-active' to='/estate/'><MenuButton icon={houseIcon} label={'Twoje nieruchomości'} /></NavLink>
-      <NavLink activeClassName='border-active' to='/classifieds/'><MenuButton icon={ad} label={'Ogłoszenia'} /></NavLink>
-      <NavLink activeClassName='border-active' to='/tenant/'><MenuButton icon={tenant} label={'Najemcy'} /></NavLink>
-      <NavLink activeClassName='border-active' to='/invoices/'><MenuButton icon={invoice} label={'Faktury'} /></NavLink>
-      <NavLink activeClassName='border-active' to='/bills/'><MenuButton icon={check} label={'Rachunki i zuzycia'} /></NavLink>
-      <NavLink activeClassName='border-active' to='/options/'><MenuButton icon={options} label={'Ustawienia'} /></NavLink>
-      <NavLink activeClassName='border-active' to='/logout/'><MenuButton icon={options} label={'Wyloguj'} /></NavLink>
+      <NavLink activeClassName='border-active' to='/start/'><MenuButton icon={startIcon} label={'Start'} /><div className="border-half"></div></NavLink>
+      <NavLink activeClassName='border-active' to='/estate/'><MenuButton icon={houseIcon} label={'Twoje nieruchomości'} /><div className="border-half"></div></NavLink>
+      <NavLink activeClassName='border-active' to='/classifieds/'><MenuButton icon={ad} label={'Ogłoszenia'} /><div className="border-half"></div></NavLink>
+      <NavLink activeClassName='border-active' to='/tenant/'><MenuButton icon={tenant} label={'Najemcy'} /><div className="border-half"></div></NavLink>
+      <NavLink activeClassName='border-active' to='/invoices/'><MenuButton icon={invoice} label={'Faktury'} /><div className="border-half"></div></NavLink>
+      <NavLink activeClassName='border-active' to='/bills/'><MenuButton icon={check} label={'Rachunki i zuzycia'} /><div className="border-half"></div></NavLink>
+      <NavLink activeClassName='border-active' to='/options/'><MenuButton icon={options} label={'Ustawienia'} /><div className="border-half"></div></NavLink>
+      <NavLink activeClassName='border-active' to='/logout/'><MenuButton icon={options} label={'Wyloguj'} /><div className="border-half"></div></NavLink>
     </section>
   )
 }
