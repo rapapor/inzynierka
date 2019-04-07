@@ -1,7 +1,7 @@
 import React from 'react';
 import './style.sass'
 
-const button = ({ label, onClick, type, disabled, customStyle }) => {
+const button = ({ label, onClick, type, disabled, customStyle, icon }) => {
   return (
     <button
       className={`btn btn-${type}`}
@@ -9,7 +9,8 @@ const button = ({ label, onClick, type, disabled, customStyle }) => {
       disabled={disabled}
       style={(customStyle)}
     >
-      {label}
+    {icon && <img src={icon} width='20px' height='20px' alt='btn icon'/>}
+    {label}
     </button>
   )
 }
