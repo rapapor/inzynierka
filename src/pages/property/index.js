@@ -30,7 +30,7 @@ class Property extends Component {
     return (
       <section className="section-property">
         <header className='button-property-container'>
-          <Button type={'accept'} icon={plusIcon} label={'Dodaj'}/>
+          <Button type={'accept'} icon={plusIcon} label={'Dodaj'} customStyle={{padding: 0}}/>
         </header>
         <main className='main-container-property'>
           <SmallCardProperty />
