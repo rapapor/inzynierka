@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-d
 
 import LoginPages from './pages/login'
 import Property from './pages/property'
+import AddProperty from './pages/addProperty'
 import Logout from './pages/logout'
 
 import Menu from './containers/menu'
@@ -48,6 +49,7 @@ class App extends Component {
             <Route path="/invoices/" render={() => <React.Fragment> <Menu /> <Property globalState={this.state}/></React.Fragment>} />
             <Route path="/bills/" render={() => <React.Fragment> <Menu /> <Property globalState={this.state}/></React.Fragment>} />
             <Route path="/options/" render={() => <React.Fragment> <Menu /> <Property globalState={this.state}/></React.Fragment>} />
+            <Route path="/add-property/" render={() => <React.Fragment> <Menu /> <AddProperty globalState={this.state}/></React.Fragment>} />
             <Route path="/logout/" render={() => <React.Fragment> <Menu /> <Logout setToken={this.setToken}/></React.Fragment>} />
           </Switch>
         </Router>

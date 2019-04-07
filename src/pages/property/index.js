@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect } from "react-router-dom"
+import { Redirect, Link } from "react-router-dom"
 import api from './../../api'
 import plusIcon from './../../assets/images/card-property-items/plusik.png'
 import Button from './../../components/button'
@@ -24,13 +24,13 @@ class Property extends Component {
   render(){
     if(!localStorage.getItem('token')){
       return (
-        <Redirect to="/start/" />
+        <Redirect to="/login/" />
       )
     }
     return (
       <section className="section-property">
         <header className='button-property-container'>
-          <Button type={'accept'} icon={plusIcon} label={'Dodaj'} customStyle={{padding: 0}}/>
+          <Link to='/add-property/'><Button type={'accept'} icon={plusIcon} label={'Dodaj'} /></Link>
         </header>
         <main className='main-container-property'>
           <SmallCardProperty />
