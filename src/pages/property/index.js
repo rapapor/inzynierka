@@ -54,6 +54,7 @@ class Property extends Component {
       surface={flats.surface}
       street={flats.street}
       bail={flats.bail}
+      img={flats.imagesUrls[0]}
       status={{text: statusText, color: status}}
       key={flats.id}
     />

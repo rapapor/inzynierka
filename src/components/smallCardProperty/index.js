@@ -5,12 +5,12 @@ import addIcon from './../../assets/images/card-property-items/ikona_dodawania.p
 import editIcon from './../../assets/images/card-property-items/ikona_edycji.png'
 import deleteIcon from './../../assets/images/card-property-items/ikona_usuwania.png'
 
-const SmallCardProperty = ({surface, bail, street, status}) => {
+const SmallCardProperty = ({surface, bail, street, status, img='https://thumbs.img-sprzedajemy.pl/1000x901c/c6/87/16/komfortowe-mieszkanie-dwupoziomowe-rzeszow-455238192.jpg'}) => {
   return (
     <section className='card-property-dashboard card-style'>
       <span className={`status ${status.color}`}>{status.text}</span>
       <header className='card-property-dashboard-img'>
-        <img alt='' src='https://thumbs.img-sprzedajemy.pl/1000x901c/c6/87/16/komfortowe-mieszkanie-dwupoziomowe-rzeszow-455238192.jpg' />
+        <img alt='' src={img} />
       </header>
       <main className='property-info'>
         <span className='tip-property'>Cena</span>
