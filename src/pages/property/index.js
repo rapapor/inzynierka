@@ -9,6 +9,9 @@ import './style.sass'
 class Property extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      myFlats: []
+    }
     this.adresRef = React.createRef();
   }
 
@@ -16,12 +19,48 @@ class Property extends Component {
     var token = localStorage.getItem('token')
     api.getFlatsList(token).then(res => {
       console.log(res)
+      this.setState({myFlats: res})
     }).catch(error => {
       console.log(error)
     })
   }
 
+  generateFlatsCard = (flats) => {
+    let statusText = ''
+    let status = ''
+    switch (flats.flatStatus) {
+      case "FOR_RENT":
+        statusText = 'Do wynajęcia'
+        status = 'for-rent'
+        break;
+      case "RENTED":
+        statusText = 'Wynajęte'
+        status = 'rented'
+        break;
+      case "ACTIVE":
+        statusText = 'Aktywne'
+        status = 'active'
+        break;
+      case "INACTIVE":
+        statusText = 'Nieaktywne'
+        status = 'inactive'
+        break;
+      default:
+        statusText = 'Aktywne'
+        status = 'active'
+        break;
+    }
+    return <SmallCardProperty
+      surface={flats.surface}
+      street={flats.street}
+      bail={flats.bail}
+      status={{text: statusText, color: status}}
+      key={flats.id}
+    />
+  }
+
   render(){
+    const { myFlats } = this.state
     if(!localStorage.getItem('token')){
       return (
         <Redirect to="/login/" />
@@ -33,12 +72,7 @@ class Property extends Component {
           <Link to='/add-property/'><Button type={'accept'} icon={plusIcon} label={'Dodaj'} /></Link>
         </header>
         <main className='main-container-property'>
-          <SmallCardProperty />
-          <SmallCardProperty />
-          <SmallCardProperty />
-          <SmallCardProperty />
-          <SmallCardProperty />
-          <SmallCardProperty />
+          {myFlats.map(flats => this.generateFlatsCard(flats))}
         </main>
         <footer></footer>
       </section>
