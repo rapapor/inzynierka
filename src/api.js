@@ -63,9 +63,7 @@ class API {
       // "equipment": [
       //   "string"
       // ],
-      // "additionalInformation": [
-      //   "string"
-      // ],
+      // additionalInformation: equipment,
       postCode: property.postCode,
       price: property.price,
       propertyStatus: "FOR_RENT",
@@ -86,6 +84,19 @@ class API {
     }).catch(error => {
       console.log(error)
     })
+  }
+
+  deleteProperty(id, token) {
+    return axios.delete(`${this.baseURL}/properties/${id}`, {
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+        'Authorization': 'Bearer ' + token
+      }})
+      .then(res => {
+        return res.data
+      }).catch(error => {
+        console.log(error)
+      })
   }
 }
 

@@ -16,12 +16,23 @@ class Property extends Component {
   }
 
   componentDidMount(){
+   this.loadFlats()
+  }
+
+  loadFlats = () => {
     var token = localStorage.getItem('token')
     api.getFlatsList(token).then(res => {
       console.log(res)
       this.setState({myFlats: res})
     }).catch(error => {
       console.log(error)
+    })
+  }
+
+  deleteProperty = (id) => {
+    const token = localStorage.getItem('token')
+    api.deleteProperty(id, token).then(res => {
+      this.loadFlats()
     })
   }
 
@@ -57,6 +68,8 @@ class Property extends Component {
       img={flats.imagesUrls[0]}
       status={{text: statusText, color: status}}
       key={flats.id}
+      id={flats.id}
+      onDelete={this.deleteProperty}
     />
   }
 
