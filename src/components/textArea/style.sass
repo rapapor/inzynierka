@@ -1,0 +1,52 @@
+
+.textarea-container
+  position: relative
+  margin-bottom: 45px
+  width: 100%
+  display: flex
+  justify-content: center
+  align-items: center
+  .base-text_area
+    padding: 5px
+    font-size: 16px
+    border: 0
+    outline: 0
+    background: transparent
+    border: 1px solid #e6e7e8
+    width: 70%
+    &:focus
+      border-color: #1b75bb
+  label
+    color: #999
+    font-size: 14px
+    font-weight: normal
+    position: absolute
+    pointer-events: none
+    left: 15%
+    top: 0px
+    transition: 0.2s ease all
+    -moz-transition: 0.2s ease all
+    -webkit-transition: 0.2s ease all
+
+  textarea:focus + label
+    outline: none
+    top: -30px
+    font-size: 10px
+    color: #5264AE
+  &.filled
+    label
+      outline: none
+      top: -20px
+      font-size: 10px
+      color: #5264AE
+  .error-valid
+    display: none
+    color: red
+    &.show
+      display: block
+      position: absolute
+      font-size: 10px
+      top: 30px
+      left: 50px
+
+    

@@ -28,7 +28,7 @@ class Property extends Component {
   generateFlatsCard = (flats) => {
     let statusText = ''
     let status = ''
-    switch (flats.flatStatus) {
+    switch (flats.propertyStatus) {
       case "FOR_RENT":
         statusText = 'Do wynajęcia'
         status = 'for-rent'
