@@ -39,42 +39,43 @@ class API {
       equipment.push({ [key]: property.additionalInformation[key] })
     )
     let my_property = {
-      "availableFrom": "2019-04-14T12:37:37.141Z",
-      "bail": property.bail,
-      "buildingMaterial": property.materialType,
-      "buildingType": property.buildingType,
-      "city": property.city,
-      "description": property.description,
-      "floor": property.floor,
-      "floorsNumber": property.numberFloors,
-      "heating": property.heating,
-      "id": 0,
-      "images": [
-        "string"
-      ],
-      "imagesUrls": [
-        "string"
-      ],
-      "media": [
-        "string"
-      ],
-      "security": [
-        "string"
-      ],
-      "equipment": equipment,
-      "additionalInformation": [
-        "string"
-      ],
-      "postCode": property.postCode,
-      "price": property.price,
-      "propertyStatus": "FOR_RENT",
-      "roomsNumber": property.rooms,
-      "street": property.street,
-      "surface": property.surface,
-      "title": property.title,
-      "windows": property.windowsType
+      availableFrom: "2019-04-14T12:37:37.141Z",
+      bail: property.bail,
+      buildingMaterial: property.materialType,
+      buildingType: property.buildingType,
+      city: property.city,
+      description: property.description,
+      floor: property.floor,
+      floorsNumber: property.numberFloors,
+      heating: property.heating,
+      // "images": [
+      //   "string"
+      // ],
+      // "imagesUrls": [
+      //   "string"
+      // ],
+      // "media": [
+      //   "string"
+      // ],
+      // "security": [
+      //   "string"
+      // ],
+      // "equipment": [
+      //   "string"
+      // ],
+      // "additionalInformation": [
+      //   "string"
+      // ],
+      postCode: property.postCode,
+      price: property.price,
+      propertyStatus: "FOR_RENT",
+      roomsNumber: property.rooms,
+      street: property.street,
+      surface: property.surface,
+      title: property.title,
+      windows: property.windowsType
     }
-    console.log(equipment)
+    console.log(my_property)
     return axios.post(`${this.baseURL}/properties`,my_property, {
     headers: {
       'Content-Type': 'application/json;charset=UTF-8',
