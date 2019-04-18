@@ -83,7 +83,7 @@ class AddProperty extends Component {
         constructionYear: this.constructionYearInput.current.value,
         windowsType: this.windowsTypeInput.current.value,
         floor: this.floorInput.current.value,
-        numberFloors: this.houseNumberInput.current.value,
+        numberFloors: this.numberOfFloors.current.value,
         heating: this.heatingInput.current.value,
         balcony: this.balconyInput.current.value
       }})
@@ -241,7 +241,7 @@ class AddProperty extends Component {
                   <Input
                     placeholder={'Ilość pięter w budynku'}
                     onChange={this.handleChange}
-                    refs={this.houseNumberInput}
+                    refs={this.numberOfFloors}
                     value={this.state.property.numberFloors}
                   // error={this.state.error}
                   />
