@@ -4,6 +4,8 @@ import Button from './../../components/button'
 import Input from './../../components/input'
 import Textarea from './../../components/textArea'
 import api from './../../api'
+import swal from 'sweetalert'
+
 
 import './style.sass'
 
@@ -91,12 +93,19 @@ class AddProperty extends Component {
       items: [...this.state.items, this.state.term]
     });
   }
-
+  
   onFormSubmit = () => {
     const {property, items, images} = this.state
     var token = localStorage.getItem('token')
     api.createProperty(property, token, items, images).then(res => {
-      alert('udalo sie')
+      swal({
+        title: "Dodałeś Nieruchomość!",
+        text: "Dziękujemy za zaufanie!",
+        icon: "success",
+        button: "Dziękuję!",
+      }).then((value) => {
+        window.location.replace('/add-property/')
+      });
     })
   }
 
@@ -108,7 +117,7 @@ class AddProperty extends Component {
     this.getBase64(file, (result) => {
     idCardBase64 = result;
     if( this.state.images.length >= 3) {
-      alert('maksimum plików to 3')
+      alert('Maksimum plików to 3')
     } else {
       this.setState({
         images: [...this.state.images, idCardBase64]
