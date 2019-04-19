@@ -34,10 +34,6 @@ class API {
   }
 
   createProperty(property, token, items){
-    let equipment = []
-    Object.keys(property.additionalInformation).map(key => 
-      equipment.push({ [key]: property.additionalInformation[key] })
-    )
     let my_property = {
       availableFrom: "2019-04-14T12:37:37.141Z",
       bail: property.bail,

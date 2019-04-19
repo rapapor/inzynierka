@@ -49,18 +49,6 @@ class AddProperty extends Component {
         numberFloors: '',
         heating: '',
         balcony: '',
-        additionalInformation: {
-          bike_storage: false,
-          storage: false,
-          tv_pack: false,
-          internet: false,
-          h_protection: false,
-          parking_protection: false,
-          oven: false,
-          washer: false,
-          w_machine: false,
-          fridge: false
-        },
       },
       term: '',
       items: []
@@ -89,14 +77,6 @@ class AddProperty extends Component {
         heating: this.heatingInput.current.value,
         balcony: this.balconyInput.current.value
       }})
-      const target = event.target;
-      if (target.type === 'checkbox') {
-        const value = target.checked
-        const name = target.name;
-        this.setState({
-          property: { ...this.state.property, additionalInformation: { ...this.state.property.additionalInformation, [name]: value } }
-        });
-      } 
   }
 
   handleChangeAddInfo = (event) => {
@@ -114,7 +94,9 @@ class AddProperty extends Component {
   onFormSubmit = () => {
     const {property, items} = this.state
     var token = localStorage.getItem('token')
-    api.createProperty(property, token, items)
+    api.createProperty(property, token, items).then(res => {
+      alert('udalo sie')
+    })
   }
 
   deleteItemFromAddInfo = (itemIndex) => {
