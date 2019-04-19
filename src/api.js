@@ -33,7 +33,7 @@ class API {
       })
   }
 
-  createProperty(property, token, items){
+  createProperty(property, token, items, images){
     let my_property = {
       availableFrom: "2019-04-14T12:37:37.141Z",
       bail: property.bail,
@@ -44,9 +44,7 @@ class API {
       floor: property.floor,
       floorsNumber: property.numberFloors,
       heating: property.heating,
-      // "images": [
-      //   "string"
-      // ],
+      images: images,
       // "imagesUrls": [
       //   "string"
       // ],
@@ -69,6 +67,7 @@ class API {
       title: property.title,
       windows: property.windowsType
     }
+    console.log(my_property)
     return axios.post(`${this.baseURL}/properties`,my_property, {
     headers: {
       'Content-Type': 'application/json;charset=UTF-8',

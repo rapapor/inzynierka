@@ -51,7 +51,8 @@ class AddProperty extends Component {
         balcony: '',
       },
       term: '',
-      items: []
+      items: [],
+      images: []
     }
   }
 
@@ -92,11 +93,24 @@ class AddProperty extends Component {
   }
 
   onFormSubmit = () => {
-    const {property, items} = this.state
+    const {property, items, images} = this.state
     var token = localStorage.getItem('token')
-    api.createProperty(property, token, items).then(res => {
+    api.createProperty(property, token, items, images).then(res => {
       alert('udalo sie')
     })
+  }
+
+  
+
+  onChangeFileInput = (e) => {
+    let idCardBase64 = '';
+    let file = e.target.files[0]
+    this.getBase64(file, (result) => {
+    idCardBase64 = result;
+    this.setState({
+      images: [...this.state.images, idCardBase64]
+    })
+});
   }
 
   deleteItemFromAddInfo = (itemIndex) => {
@@ -106,6 +120,18 @@ class AddProperty extends Component {
       items: filteredItems
     })
   }
+
+  getBase64(file, cb) {
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+        cb(reader.result)
+        console.log(reader.result)
+    };
+    reader.onerror = function (error) {
+        console.log('Error: ', error);
+    };
+}
 
   render(){
     if(!localStorage.getItem('token')){
@@ -165,7 +191,9 @@ class AddProperty extends Component {
               value={this.state.property.description}
               // error={this.state.error}
             />
-            <input type="file" name="img" multiple />
+            <input type="file" name="img" onChange={this.onChangeFileInput}/>
+            <input type="file" name="img" onChange={this.onChangeFileInput}/>
+            <input type="file" name="img" onChange={this.onChangeFileInput}/>
             </div>
           </div>
           <div className="specialize-container">
