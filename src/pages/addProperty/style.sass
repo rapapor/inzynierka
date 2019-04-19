@@ -85,23 +85,37 @@
         top: 20px
         color: #fff
         text-align: center
-      .container-checkbox
-        display: flex
-        justify-content: space-between
-        margin-left: 45px
-        padding-bottom: 20px
-        .label-checkbox-section
-          font-size: 12px
-          color: #999
-          padding: 10px 20px 5px 0px
-          border-bottom: solid 1px #999
-        .checkbox-section
+      .input-addInfo-container
+        margin-top: 80px
+        width: 100%
+        .add-info-form
           display: flex
+          justify-content: center
+          align-items: center
           flex-direction: column
-          margin-top: 20px
-          .single-label-checkbox
-            color: #999
-            font-size: 12px
+      .additional-info-list
+        display: flex
+        justify-content: flex-start
+        align-items: center
+        margin: 20px
+        flex-wrap: wrap
+        .add-info-item
+          background: $statusBlue
+          color: #ffffff
+          padding: 10px 25px
+          border-radius: 7px
+          margin: 5px
+          position: relative
+          .delete-btn
+            position: absolute
+            font-size: 10px
+            top: 0px
+            right: 0px
+            cursor: pointer
+            padding: 5px
+            border-radius: 10px
+            &:hover
+              font-size: 14px
     .confirm-btn-container
       display: flex
       justify-content: flex-end

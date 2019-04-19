@@ -33,7 +33,7 @@ class API {
       })
   }
 
-  createProperty(property, token){
+  createProperty(property, token, items){
     let equipment = []
     Object.keys(property.additionalInformation).map(key => 
       equipment.push({ [key]: property.additionalInformation[key] })
@@ -63,7 +63,7 @@ class API {
       // "equipment": [
       //   "string"
       // ],
-      // additionalInformation: equipment,
+      additionalInformation: items,
       postCode: property.postCode,
       price: property.price,
       propertyStatus: "FOR_RENT",
@@ -73,7 +73,6 @@ class API {
       title: property.title,
       windows: property.windowsType
     }
-    console.log(my_property)
     return axios.post(`${this.baseURL}/properties`,my_property, {
     headers: {
       'Content-Type': 'application/json;charset=UTF-8',

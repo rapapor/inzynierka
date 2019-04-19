@@ -61,7 +61,9 @@ class AddProperty extends Component {
           w_machine: false,
           fridge: false
         },
-      }
+      },
+      term: '',
+      items: []
     }
   }
 
@@ -97,9 +99,30 @@ class AddProperty extends Component {
       } 
   }
 
+  handleChangeAddInfo = (event) => {
+    this.setState({term: event.target.value});
+  }
+
+  onSubmitAddInfo = (event) => {
+    event.preventDefault()
+    this.setState({
+      term: '',
+      items: [...this.state.items, this.state.term]
+    });
+  }
+
   onFormSubmit = () => {
+    const {property, items} = this.state
     var token = localStorage.getItem('token')
-    api.createProperty(this.state.property, token)
+    api.createProperty(property, token, items)
+  }
+
+  deleteItemFromAddInfo = (itemIndex) => {
+    const { items } = this.state
+    const filteredItems = items.slice(0, itemIndex).concat(items.slice(itemIndex + 1, items.length))
+    this.setState({
+      items: filteredItems
+    })
   }
 
   render(){
@@ -265,32 +288,19 @@ class AddProperty extends Component {
           </div>
           <div className="additional-special-info-container card-style">
             <span className="section-label">Dodatkowe informacje</span>
-            <div className="form-container container-checkbox">
-            <div className="col-4 ">
-              <span className="label-checkbox-section">Sprzęt</span>
-              <div className="checkbox-section">
-                <div><input type="checkbox" name="oven" value="Piekarnik" onChange={this.handleChange} checked={this.state.property.additionalInformation.oven}/> <span className="single-label-checkbox">Piekarnik</span></div>
-                <div><input type="checkbox" name="washer" value="Pralka" onChange={this.handleChange} checked={this.state.property.additionalInformation.washer} /> <span className="single-label-checkbox">Pralka</span></div>
-                <div><input type="checkbox" name="w_machine" value="Zmywarka" onChange={this.handleChange} checked={this.state.property.additionalInformation.w_machine}/> <span className="single-label-checkbox">Zmywarka</span></div>
-                <div><input type="checkbox" name="fridge" value="Lodówka" onChange={this.handleChange} checked={this.state.property.additionalInformation.fridge}/> <span className="single-label-checkbox">Lodówka</span></div>
+            <div className="input-addInfo-container">
+              <form className="add-info-form" onSubmit={this.onSubmitAddInfo}>
+                  <Input
+                      placeholder={'Dodatkowe informacje'}
+                      onChange={this.handleChangeAddInfo}
+                      value={this.state.term}
+                    // error={this.state.error}
+                    />
+                  <Button className="asdf" type="accept" label={'Dodaj'} btnType={'submit'} />   
+              </form>
+              <div className="additional-info-list">
+                {this.state.items.map((item, index) => <div className="add-info-item" key={index}>{item}<span onClick={() => this.deleteItemFromAddInfo(index)} className="delete-btn">&#10008;</span></div>)}
               </div>
-            </div>
-            <div className="col-4">
-              <span className="label-checkbox-section">Media</span>
-              <div className="checkbox-section">
-                <div><input type="checkbox" name="tv_pack" value="Pakiet telewizyjny" onChange={this.handleChange} checked={this.state.property.additionalInformation.tv_pack}/> <span className="single-label-checkbox">Pakiet telewizyjny</span></div>
-                <div><input type="checkbox" name="internet" value="Internet" onChange={this.handleChange} checked={this.state.property.additionalInformation.internet}/> <span className="single-label-checkbox">Internet</span></div>
-              </div>
-            </div>
-            <div className="col-4">
-              <span className="label-checkbox-section">Pozostałe informacje</span>
-              <div className="checkbox-section">
-                <div><input type="checkbox" name="h_protection" value="Ochrona osiedla" onChange={this.handleChange} checked={this.state.property.additionalInformation.h_protection}/> <span className="single-label-checkbox">Ochrona osiedla</span></div>
-                <div><input type="checkbox" name="parking_protection" value="Parking strzezony" onChange={this.handleChange} checked={this.state.property.additionalInformation.parking_protection}/> <span className="single-label-checkbox">Parking strzeony</span></div>
-                <div><input type="checkbox" name="storage" value="Komórka lokatorska" onChange={this.handleChange} checked={this.state.property.additionalInformation.storage}/> <span className="single-label-checkbox">Komórka lokatorska</span></div>
-                <div><input type="checkbox" name="bike_storage" value="Rowerownia" onChange={this.handleChange} checked={this.state.property.additionalInformation.bike_storage}/> <span className="single-label-checkbox">Rowerownia</span></div>
-              </div>
-            </div>
             </div>
           </div>
           <div className="confirm-btn-container">
