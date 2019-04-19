@@ -45,18 +45,6 @@ class API {
       floorsNumber: property.numberFloors,
       heating: property.heating,
       images: images,
-      // "imagesUrls": [
-      //   "string"
-      // ],
-      // "media": [
-      //   "string"
-      // ],
-      // "security": [
-      //   "string"
-      // ],
-      // "equipment": [
-      //   "string"
-      // ],
       additionalInformation: items,
       postCode: property.postCode,
       price: property.price,

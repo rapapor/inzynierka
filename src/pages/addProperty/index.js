@@ -107,9 +107,13 @@ class AddProperty extends Component {
     let file = e.target.files[0]
     this.getBase64(file, (result) => {
     idCardBase64 = result;
-    this.setState({
-      images: [...this.state.images, idCardBase64]
-    })
+    if( this.state.images.length >= 3) {
+      alert('maksimum plików to 3')
+    } else {
+      this.setState({
+        images: [...this.state.images, idCardBase64]
+      })
+    }
 });
   }
 
@@ -118,6 +122,14 @@ class AddProperty extends Component {
     const filteredItems = items.slice(0, itemIndex).concat(items.slice(itemIndex + 1, items.length))
     this.setState({
       items: filteredItems
+    })
+  }
+
+  deleteItemFromImages = (itemIndex)=> {
+    const { images } = this.state
+    const filteredItems = images.slice(0, itemIndex).concat(images.slice(itemIndex + 1, images.length))
+    this.setState({
+      images: filteredItems
     })
   }
 
@@ -191,9 +203,12 @@ class AddProperty extends Component {
               value={this.state.property.description}
               // error={this.state.error}
             />
-            <input type="file" name="img" onChange={this.onChangeFileInput}/>
-            <input type="file" name="img" onChange={this.onChangeFileInput}/>
-            <input type="file" name="img" onChange={this.onChangeFileInput}/>
+            <input type="file" name="img" onChange={this.onChangeFileInput} />
+            <input type="file" name="img" onChange={this.onChangeFileInput} />
+            <input type="file" name="img" onChange={this.onChangeFileInput} />
+            <div className="preview-container">
+              {this.state.images.map((item, index) => <div className="single-preview-container"><img className="img-preview" alt="preview" src={item} key={index} /><span onClick={() => this.deleteItemFromImages(index)} className="delete-btn">&#10008;</span></div> )}
+            </div>
             </div>
           </div>
           <div className="specialize-container">
