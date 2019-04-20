@@ -80,6 +80,22 @@ class API {
         console.log(error)
       })
   }
+
+  updateProperty(id, token, status) {
+    let my_property = {
+      propertyStatus: status
+    }
+    return axios.put(`${this.baseURL}/properties/${id}`,my_property, {
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+        'Authorization': 'Bearer ' + token
+      }})
+      .then(res => {
+        return res.data
+      }).catch(error => {
+        console.log(error)
+      })
+  }
 }
 
 

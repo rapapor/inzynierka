@@ -4,11 +4,10 @@ import Button from './../../components/button'
 import Input from './../../components/input'
 import Textarea from './../../components/textArea'
 import api from './../../api'
-import swal from 'sweetalert'
+import swal from '@sweetalert/with-react'
 
 
 import './style.sass'
-
 
 class AddProperty extends Component {
   constructor(props) {
@@ -153,7 +152,6 @@ class AddProperty extends Component {
         console.log('Error: ', error);
     };
 }
-
   render(){
     if(!localStorage.getItem('token')){
       return (

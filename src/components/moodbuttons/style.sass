@@ -1,0 +1,20 @@
+@import '../../utils/global.sass'
+  
+.mood-btn
+  background: $baseBlue
+  padding: 5px
+  margin: 5px
+  color: #fff
+  border-radius: 7px
+  font-size: 12px
+  cursor: pointer
+  &.FOR_RENT
+    background: $statusBlue
+  &.RENTED
+    background: $statusOrange
+  &.ACTIVE
+    background: $statusGreen
+  &.INACTIVE
+    background: $statusRed
+  &:hover
+    box-shadow: -2px 2px 2px #aaa

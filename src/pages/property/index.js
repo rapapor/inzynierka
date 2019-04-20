@@ -4,8 +4,10 @@ import api from './../../api'
 import plusIcon from './../../assets/images/card-property-items/plusik.png'
 import Button from './../../components/button'
 import SmallCardProperty from './../../components/smallCardProperty'
+import swal from '@sweetalert/with-react'
+import MoodButton from './../../components/moodbuttons'
 import './style.sass'
-
+ 
 class Property extends Component {
   constructor(props) {
     super(props)
@@ -70,8 +72,69 @@ class Property extends Component {
       key={flats.id}
       id={flats.id}
       onDelete={this.deleteProperty}
+      onChangeStatus={this.handleChangeStatus}
     />
   }
+
+onPick = (id, val, label) => {
+    const token = localStorage.getItem('token')
+    api.updateProperty(id, token, val).then(res => {
+      if(res){
+        swal("Zmieniłeś status tego mieszkania!", `Aktualny status:  ${label}`, "success")
+      } else {
+        swal(
+          <div>
+            <h1>Uups przepraszamy, coś poszło nie tak</h1>
+            <p>
+              Prosimy spróbować ponownie.
+            </p>
+          </div>
+        )
+      }
+      this.loadFlats()
+    }).catch(error => {
+      console.log(error)
+    })
+    
+  }
+
+  handleChangeStatus = (id) => {
+    swal({
+      text: "Zmień status swojej nieruchomości.",
+      buttons: {
+        cancel: "Anuluj",
+      },
+      content: (
+        <div>
+          <MoodButton
+            label={'Do wynajęcia'}
+            id={id}
+            val={'FOR_RENT'}
+            onClick={this.onPick}
+          />
+          <MoodButton
+            label={'Wynajęte'}
+            id={id}
+            val={'RENTED'}
+            onClick={this.onPick}
+          />
+          <MoodButton
+            label={'Aktywne'}
+            id={id}
+            val={'ACTIVE'}
+            onClick={this.onPick}
+          />
+          <MoodButton
+            label={'Nieaktywne'}
+            id={id}
+            val={'INACTIVE'}
+            onClick={this.onPick}
+          />
+        </div>
+      )
+    })
+  }
+  
 
   render(){
     const { myFlats } = this.state
