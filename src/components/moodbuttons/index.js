@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './style.sass'
 
 const MoodButton = ({ label, val, id, onClick }) => (
