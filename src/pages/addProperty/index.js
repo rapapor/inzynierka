@@ -160,7 +160,7 @@ class AddProperty extends Component {
     }
     return (
       <div className="addProperty-container">
-        <div className="addProperty-form"> {/* onSubmit={this.onFormSubmit */}
+        <div className="addProperty-form">
           <div className="base-info-container card-style">
             <span className="section-label">Informacje podstawowe</span>
             <div className="left-side-form-add-property">

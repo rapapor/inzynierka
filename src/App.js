@@ -6,6 +6,7 @@ import LoginPages from './pages/login'
 import Property from './pages/property'
 import AddProperty from './pages/addProperty'
 import Logout from './pages/logout'
+import Tenant from './pages/tenant'
 
 import Menu from './containers/menu'
 
@@ -45,7 +46,7 @@ class App extends Component {
             <Route path="/start/" render={() => <React.Fragment> <Menu /> <Property globalState={this.state}/></React.Fragment>} />
             <Route path="/estate/" render={() => <React.Fragment> <Menu /> <Property globalState={this.state}/></React.Fragment>} />
             <Route path="/classifieds/" render={() => <React.Fragment> <Menu /> <Property globalState={this.state}/></React.Fragment>} />
-            <Route path="/tenant/" render={() => <React.Fragment> <Menu /> <Property globalState={this.state}/></React.Fragment>} />
+            <Route path="/tenant/" render={() => <React.Fragment> <Menu /> <Tenant globalState={this.state}/></React.Fragment>} />
             <Route path="/invoices/" render={() => <React.Fragment> <Menu /> <Property globalState={this.state}/></React.Fragment>} />
             <Route path="/bills/" render={() => <React.Fragment> <Menu /> <Property globalState={this.state}/></React.Fragment>} />
             <Route path="/options/" render={() => <React.Fragment> <Menu /> <Property globalState={this.state}/></React.Fragment>} />

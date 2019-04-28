@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import { tenants } from './utils/tempData'
 class API {
   constructor(apiURL) {
     this.baseURL = apiURL
@@ -7,7 +7,6 @@ class API {
       token: '',
     }
   }
-
 
   login(user){
     return axios.post(`${this.baseURL}/auth/`,
@@ -17,6 +16,51 @@ class API {
       }).catch(error => {
         console.log(error)
       })
+  }
+
+  getTenantList(token) {
+    return axios.get(`${this.baseURL}/properties`, {
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+        'Authorization': 'Bearer ' + token
+      }
+    })
+      .then(res => {
+        // return res.data
+        return tenants
+      }).catch(error => {
+        console.log(error)
+        return tenants
+      })
+  }
+
+  deleteTenant(id, token) {
+    return axios.delete(`${this.baseURL}/tenant/${id}`, {
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+        'Authorization': 'Bearer ' + token
+      }})
+      .then(res => {
+        return res.data
+      }).catch(error => {
+        console.log(error)
+      })
+  }
+
+  createTenant(tenant, token){
+    return axios.post(`${this.baseURL}/tenant`,tenant, {
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+        'Authorization': 'Bearer ' + token
+      }})
+      .then(res => {
+        // return res.data
+        console.log(tenant)
+      }).catch(error => {
+        console.log(error)
+        console.log(tenant)
+      })
+    
   }
 
   getFlatsList(token){
