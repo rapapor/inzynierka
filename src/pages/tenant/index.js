@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-import { Redirect, Link } from "react-router-dom"
+import { Redirect } from "react-router-dom"
 import api from './../../api'
 import Input from './../../components/input'
-import plusIcon from './../../assets/images/card-property-items/plusik.png'
 import Button from './../../components/button'
-import SmallCardProperty from './../../components/smallCardProperty'
 import swal from '@sweetalert/with-react'
-import MoodButton from './../../components/moodbuttons'
 
 import CardComponent from './../../components/cardComponent'
 import './style.sass'
