@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { tenants } from './utils/tempData'
 class API {
   constructor(apiURL) {
     this.baseURL = apiURL
