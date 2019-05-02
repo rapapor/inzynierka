@@ -2,7 +2,7 @@ import React from 'react'
 import {  NavLink } from "react-router-dom";
 import './style.sass'
 
-import startIcon from './../../assets/images/ico-btn/ikony_all-04.png'
+// import startIcon from './../../assets/images/ico-btn/ikony_all-04.png'
 import houseIcon from './../../assets/images/ico-btn/ikony_all-02.png'
 import ad from './../../assets/images/ico-btn/ikony_all-11.png'
 import tenant from './../../assets/images/ico-btn/ikony_all-18.png'
