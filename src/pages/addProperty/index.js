@@ -160,7 +160,6 @@ class AddProperty extends Component {
     reader.readAsDataURL(file);
     reader.onload = function () {
         cb(reader.result)
-        console.log(reader.result)
     };
     reader.onerror = function (error) {
         console.log('Error: ', error);

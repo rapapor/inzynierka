@@ -94,7 +94,6 @@ class API {
       title: property.title,
       windows: property.windowsType
     }
-    console.log(my_property)
     return axios.post(`${this.baseURL}/properties`,my_property, {
     headers: {
       'Content-Type': 'application/json;charset=UTF-8',

@@ -39,7 +39,6 @@ class Tenant extends Component {
   loadFlats = () => {
     var token = localStorage.getItem('token')
     api.getFlatsList(token).then(res => {
-      console.log(res)
       this.setState({myFlats: res})
     }).catch(error => {
       console.log(error)
@@ -58,7 +57,6 @@ class Tenant extends Component {
                 })
     var token = localStorage.getItem('token')
     api.getTenantList(token).then(res => {
-      console.log(res)
       this.setState({myTenant: res})
     }).catch(error => {
       console.log(error)
@@ -100,7 +98,7 @@ class Tenant extends Component {
       }
     }
     api.createTenant(tenant, token).then(res => {
-      if ( res.status === 200) {
+      if ( res && res.status === 200) {
         swal({
           title: "Dodałeś Nowego najemce!",
           text: "Dziękujemy za zaufanie!",
@@ -115,9 +113,10 @@ class Tenant extends Component {
           title: "Coś poszło nie tak",
           text: "Bardzo przepraszamy niestety nie udało się dodać najemcy, spróbuj ponownie",
           icon: "warning",
-          buttons: true,
           dangerMode: true,
         })
+        this.loadFlats()
+        this.loadTenant()
       }
     })
   }
@@ -148,8 +147,6 @@ class Tenant extends Component {
         <Redirect to="/login/" />
       )
     }
-    console.log(this.state)
-
     return (
       <section>
         <main className="tenant-container">
