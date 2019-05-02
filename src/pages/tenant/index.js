@@ -129,7 +129,7 @@ class Tenant extends Component {
     return (
       <tr key={tenant.pesel}>
         <td>{tenant.property.city} {tenant.property.street} </td>
-        <td>{tenant.name}</td>
+        <td>{tenant.firstName}</td>
         <td>{tenant.lastName}</td>
         <td>{tenant.pesel}</td>
         <td>{tenant.email}</td>
