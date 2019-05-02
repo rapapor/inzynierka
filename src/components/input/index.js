@@ -11,6 +11,7 @@ const input = ({ disabled, placeholder, onChange, refs, type, value, error = {vi
         onChange={onChange}
         type={type}
         ref={refs}
+        value={value}
       >
       </input>
       <label>{placeholder}</label>

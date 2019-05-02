@@ -19,23 +19,21 @@ class API {
   }
 
   getTenantList(token) {
-    return axios.get(`${this.baseURL}/properties`, {
+    return axios.get(`${this.baseURL}/tenats`, {
       headers: {
         'Content-Type': 'application/json;charset=UTF-8',
         'Authorization': 'Bearer ' + token
       }
     })
       .then(res => {
-        // return res.data
-        return tenants
+        return res.data
       }).catch(error => {
         console.log(error)
-        return tenants
       })
   }
 
   deleteTenant(id, token) {
-    return axios.delete(`${this.baseURL}/tenant/${id}`, {
+    return axios.delete(`${this.baseURL}/tenats/${id}`, {
       headers: {
         'Content-Type': 'application/json;charset=UTF-8',
         'Authorization': 'Bearer ' + token
@@ -48,17 +46,15 @@ class API {
   }
 
   createTenant(tenant, token){
-    return axios.post(`${this.baseURL}/tenant`,tenant, {
+    return axios.post(`${this.baseURL}/tenats`,tenant, {
       headers: {
         'Content-Type': 'application/json;charset=UTF-8',
         'Authorization': 'Bearer ' + token
       }})
       .then(res => {
-        // return res.data
-        console.log(tenant)
+        return res
       }).catch(error => {
         console.log(error)
-        console.log(tenant)
       })
     
   }
@@ -106,7 +102,7 @@ class API {
       'Authorization': 'Bearer ' + token
     }})
     .then(res => {
-      return res.data
+      return res
     }).catch(error => {
       console.log(error)
     })

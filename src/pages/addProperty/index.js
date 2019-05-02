@@ -10,6 +10,31 @@ import swal from '@sweetalert/with-react'
 import './style.sass'
 
 class AddProperty extends Component {
+  InitialState = {
+    property: {
+      title: '',
+      price: '',
+      bail: '',
+      surface: '',
+      rooms: '',
+      description: '',
+      street: '',
+      houseNumber: '',
+      city: '',
+      postCode: '',
+      buildingType: '',
+      materialType: '',
+      constructionYear: '',
+      windowsType: '',
+      floor: '',
+      numberFloors: '',
+      heating: '',
+      balcony: '',
+    },
+    term: '',
+    items: [],
+    images: []
+  }
   constructor(props) {
     super(props)
     this.titleInput = React.createRef();
@@ -30,31 +55,7 @@ class AddProperty extends Component {
     this.numberOfFloors = React.createRef();
     this.heatingInput = React.createRef();
     this.balconyInput = React.createRef();
-    this.state = {
-      property: {
-        title: '',
-        price: '',
-        bail: '',
-        surface: '',
-        rooms: '',
-        description: '',
-        street: '',
-        houseNumber: '',
-        city: '',
-        postCode: '',
-        buildingType: '',
-        materialType: '',
-        constructionYear: '',
-        windowsType: '',
-        floor: '',
-        numberFloors: '',
-        heating: '',
-        balcony: '',
-      },
-      term: '',
-      items: [],
-      images: []
-    }
+    this.state = this.InitialState
   }
 
   handleChange = (event) => {
@@ -97,14 +98,27 @@ class AddProperty extends Component {
     const {property, items, images} = this.state
     var token = localStorage.getItem('token')
     api.createProperty(property, token, items, images).then(res => {
-      swal({
-        title: "Dodałeś Nieruchomość!",
-        text: "Dziękujemy za zaufanie!",
-        icon: "success",
-        button: "Dziękuję!",
-      }).then((value) => {
-        window.location.replace('/add-property/')
-      });
+      if(res.status === 200 ) {
+        swal({
+          title: "Dodałeś Nieruchomość!",
+          text: "Dziękujemy za zaufanie!",
+          icon: "success",
+          button: "Dziękuję!",
+        }).then((value) => {
+          this.setState(this.InitialState)
+        });
+      } else {
+        swal({
+          title: "Coś poszło nie tak",
+          text: "Bardzo przepraszamy niestety nie udało się dodać nieruchomości, spróbuj ponownie",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        }).then( () => {
+          this.setState(this.InitialState )
+        })
+      }
+      
     })
   }
 
@@ -214,7 +228,7 @@ class AddProperty extends Component {
             <input type="file" name="img" onChange={this.onChangeFileInput} />
             <input type="file" name="img" onChange={this.onChangeFileInput} />
             <div className="preview-container">
-              {this.state.images.map((item, index) => <div className="single-preview-container"><img className="img-preview" alt="preview" src={item} key={index} /><span onClick={() => this.deleteItemFromImages(index)} className="delete-btn">&#10008;</span></div> )}
+              {this.state.images.map((item, index) => <div key={item} className="single-preview-container"><img className="img-preview" alt="preview" src={item} /><span onClick={() => this.deleteItemFromImages(index)} className="delete-btn">&#10008;</span></div> )}
             </div>
             </div>
           </div>

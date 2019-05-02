@@ -47,6 +47,15 @@ class Tenant extends Component {
   }
 
   loadTenant = () => {
+    this.setState({ 
+                  name: '',
+                  lastName: '',
+                  pesel: '',
+                  idNumber: '',
+                  email: '',
+                  phoneNumber: '',
+                  propertyId: '1',
+                })
     var token = localStorage.getItem('token')
     api.getTenantList(token).then(res => {
       console.log(res)
@@ -70,34 +79,46 @@ class Tenant extends Component {
 
   deleteTenant = (id) => {
     const token = localStorage.getItem('token')
-    // api.deleteTenant(id, token).then(res => {
-    //   this.loadFlats()
-    //   this.loadTenant()
-    // })
-    console.log(id)
+    api.deleteTenant(id, token).then(res => {
+      this.loadFlats()
+      this.loadTenant()
+    })
   }
 
   onFormSubmit = () => {
     const { name, lastName, pesel, idNumber, email, phoneNumber, propertyId} = this.state
     var token = localStorage.getItem('token')
     const tenant = {
-      name: name,
+      firstName: name,
       lastName: lastName,
       pesel: pesel,
       idNumber: idNumber,
       email: email,
       phoneNumber: phoneNumber,
-      propertyId: propertyId,
+      property: {
+        id: propertyId
+      }
     }
     api.createTenant(tenant, token).then(res => {
-      swal({
-        title: "Dodałeś Nowego najemce!",
-        text: "Dziękujemy za zaufanie!",
-        icon: "success",
-        button: "Dziękuję!",
-      }).then((value) => {
-        window.location.replace('/tenant/')
-      });
+      if ( res.status === 200) {
+        swal({
+          title: "Dodałeś Nowego najemce!",
+          text: "Dziękujemy za zaufanie!",
+          icon: "success",
+          button: "Dziękuję!",
+        }).then((value) => {
+          this.loadFlats()
+          this.loadTenant()
+        });
+      } else {
+        swal({
+          title: "Coś poszło nie tak",
+          text: "Bardzo przepraszamy niestety nie udało się dodać najemcy, spróbuj ponownie",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        })
+      }
     })
   }
 
@@ -108,7 +129,7 @@ class Tenant extends Component {
   generateMyTenant =(tenant, index) => {
     return (
       <tr key={tenant.pesel}>
-        <td>{tenant.propertyAddress}</td>
+        <td>{tenant.property.city} {tenant.property.street} </td>
         <td>{tenant.name}</td>
         <td>{tenant.lastName}</td>
         <td>{tenant.pesel}</td>
@@ -127,6 +148,8 @@ class Tenant extends Component {
         <Redirect to="/login/" />
       )
     }
+    console.log(this.state)
+
     return (
       <section>
         <main className="tenant-container">
