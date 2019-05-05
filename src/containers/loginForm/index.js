@@ -48,7 +48,7 @@ class LoginForm extends Component {
       }
       api.login(user).then(res => {
         setToken(res.token)
-        window.location.replace('/start/')
+        window.location.replace('/estate/')
       }).catch(error => {
         console.log(error)
       })
@@ -62,7 +62,7 @@ class LoginForm extends Component {
   render(){
     if (this.props.token){
       return (
-      <Redirect to="/start/" />
+      <Redirect to="/estate/" />
     )
   }
     return (

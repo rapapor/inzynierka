@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getCurrentPositionType } from './utils/helpers'
 class API {
   constructor(apiURL) {
     this.baseURL = apiURL
@@ -58,8 +59,24 @@ class API {
     
   }
 
-  getFlatsList(token){
-    return axios.get(`${this.baseURL}/properties`, {
+  calculateBill(id, status, billType) {
+    var token = localStorage.getItem('token')
+    const type = getCurrentPositionType(billType)
+    return axios.get(`${this.baseURL}/properties/${id}/bills/calculate?billType=${type.type}&rate=${type.rate}&status=${status}`, {
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+        'Authorization': 'Bearer ' + token
+      }
+    })
+      .then(res => {
+        return res.data
+      }).catch(error => {
+        console.log(error)
+      })
+  }
+
+  getFlatsList(token,id = ''){
+    return axios.get(`${this.baseURL}/properties/${id}`, {
       headers: {
         'Content-Type': 'application/json;charset=UTF-8',
         'Authorization': 'Bearer ' + token

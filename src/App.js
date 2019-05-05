@@ -10,6 +10,7 @@ import Tenant from './pages/tenant'
 import Bills from './pages/bills'
 import Invoices from './pages/invoices'
 import ClassFields from './pages/classFields'
+import AddBills from './pages/addBills'
 
 import Menu from './containers/menu'
 
@@ -52,7 +53,7 @@ class App extends Component {
             <Route path="/tenant/" render={() => <React.Fragment> <Menu /> <Tenant globalState={this.state}/></React.Fragment>} />
             <Route path="/invoices/" render={() => <React.Fragment> <Menu /> <Invoices globalState={this.state}/></React.Fragment>} />
             <Route path="/bills/" render={() => <React.Fragment> <Menu /> <Bills globalState={this.state}/></React.Fragment>} />
-            {/* <Route path="/options/" render={() => <React.Fragment> <Menu /> <Property globalState={this.state}/></React.Fragment>} /> */}
+            <Route path="/add-bills/" component={AddBills} />
             <Route path="/add-property/" render={() => <React.Fragment> <Menu /> <AddProperty globalState={this.state}/></React.Fragment>} />
             <Route path="/logout/" render={() => <React.Fragment> <Menu /> <Logout setToken={this.setToken}/></React.Fragment>} />
           </Switch>

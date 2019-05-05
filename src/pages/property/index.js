@@ -6,13 +6,15 @@ import Button from './../../components/button'
 import SmallCardProperty from './../../components/smallCardProperty'
 import swal from '@sweetalert/with-react'
 import MoodButton from './../../components/moodbuttons'
+
 import './style.sass'
  
 class Property extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      myFlats: []
+      myFlats: [],
+      propertyId: false
     }
     this.adresRef = React.createRef();
   }
@@ -73,10 +75,15 @@ class Property extends Component {
       id={flats.id}
       onDelete={this.deleteProperty}
       onChangeStatus={this.handleChangeStatus}
+      onClickBills={this.addBills}
     />
   }
+  addBills = (id) => {
+    this.setState({ propertyId: id})
+    }
 
-onPick = (id, val, label) => {
+
+  onPick = (id, val, label) => {
     const token = localStorage.getItem('token')
     api.updateProperty(id, token, val).then(res => {
       if(res){
@@ -137,11 +144,13 @@ onPick = (id, val, label) => {
   
 
   render(){
-    const { myFlats } = this.state
+    const { myFlats, propertyId } = this.state
     if(!localStorage.getItem('token')){
       return (
         <Redirect to="/login/" />
       )
+    } else if ( propertyId ) {
+      return (<Redirect to={{pathname:"/add-bills/", state: {id: propertyId}}} />)
     }
     return (
       <section className="section-property">

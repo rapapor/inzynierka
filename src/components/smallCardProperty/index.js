@@ -8,7 +8,7 @@ import deleteIcon from './../../assets/images/card-property-items/ikona_usuwania
 
 
 
-const SmallCardProperty = ({onChangeStatus, id, onDelete, surface, bail, street, status, img='https://thumbs.img-sprzedajemy.pl/1000x901c/c6/87/16/komfortowe-mieszkanie-dwupoziomowe-rzeszow-455238192.jpg'}) => {
+const SmallCardProperty = ({ onClickBills, onChangeStatus, id, onDelete, surface, bail, street, status, img='https://thumbs.img-sprzedajemy.pl/1000x901c/c6/87/16/komfortowe-mieszkanie-dwupoziomowe-rzeszow-455238192.jpg'}) => {
 return (
     <section className='card-property-dashboard card-style'>
       <span onClick={() => onChangeStatus(id)} className={`status ${status.color}`}>{status.text}</span>
@@ -23,7 +23,7 @@ return (
       </main>
       <footer className='footer-single-cart'>
         <span className='action-button'><img alt='' src={addIcon} /></span>
-        <span className='action-button'><img alt='' src={editIcon} /></span>
+        <span className='action-button'><img alt='' src={editIcon} onClick={() => onClickBills(id)}/></span>
         <span className='action-button'><img alt='' src={deleteIcon} onClick={() => onDelete(id)}/></span>
       </footer>
     </section>
