@@ -5,6 +5,7 @@ import Button from './../../components/button'
 import DatePicker from "react-datepicker"
 import * as moment from 'moment';
 import api from './../../api'
+import swal from '@sweetalert/with-react'
 import './style.sass'
 
 class AddBills extends Component {
@@ -16,6 +17,71 @@ class AddBills extends Component {
     trash: '',
     repairFund: ''
   }
+  initialMyBills = [{
+    coldWater: {
+      amount: "0",
+      currency: "PLN",
+      date: "",
+      id: 0,
+      rate: "0",
+      unit: "m3",
+      used: "0"
+    },
+    commonPart: {
+      amount: "0",
+      currency: "PLN",
+      date: "",
+      id: 0,
+      rate: "0",
+      unit: "",
+      used: "0"
+    },
+    electricity: {
+      amount: "0",
+      currency: "PLN",
+      date: "",
+      id: 0,
+      rate: "0",
+      unit: "kWh",
+      used: "0"
+    },
+    heating: {
+      amount: "0",
+      currency: "PLN",
+      date: "",
+      id: 0,
+      rate: "0",
+      unit: "GJ",
+      used: "0"
+    },
+    hotWater: {
+      amount: "0",
+      currency: "PLN",
+      date: "",
+      id: 0,
+      rate: "0",
+      unit: "m3",
+      used: "0"
+    },
+    repairFund: {
+      amount:"0",
+      currency: "PLN",
+      date: "",
+      id: 0,
+      rate: "0",
+      unit: " - ",
+      used: "0"
+    },
+    trash: {
+      amount: "0",
+      currency: "PLN",
+      date: "",
+      id: 0,
+      rate: "0",
+      unit: "os.",
+      used: "0"
+    }
+  }]
   state = {
     startDate: new Date(),
     propertyID: this.props.location.state.id,
@@ -29,71 +95,7 @@ class AddBills extends Component {
       trash: {},
       repairFund: {}
     },
-    myBills: [{
-      coldWater: {
-        amount: "0",
-        currency: "PLN",
-        date: "",
-        id: 0,
-        rate: "0",
-        unit: "m3",
-        used: "0"
-      },
-      commonPart: {
-        amount: "0",
-        currency: "PLN",
-        date: "",
-        id: 0,
-        rate: "0",
-        unit: "",
-        used: "0"
-      },
-      electricity: {
-        amount: "0",
-        currency: "PLN",
-        date: "",
-        id: 0,
-        rate: "0",
-        unit: "kWh",
-        used: "0"
-      },
-      heating: {
-        amount: "0",
-        currency: "PLN",
-        date: "",
-        id: 0,
-        rate: "0",
-        unit: "GJ",
-        used: "0"
-      },
-      hotWater: {
-        amount: "0",
-        currency: "PLN",
-        date: "",
-        id: 0,
-        rate: "0",
-        unit: "m3",
-        used: "0"
-      },
-      repairFund: {
-        amount:"0",
-        currency: "PLN",
-        date: "",
-        id: 0,
-        rate: "0",
-        unit: " - ",
-        used: "0"
-      },
-      trash: {
-        amount: "0",
-        currency: "PLN",
-        date: "",
-        id: 0,
-        rate: "0",
-        unit: "os.",
-        used: "0"
-      }
-    }]
+    myBills: this.initialMyBills
   }
   
   componentDidMount() {
@@ -104,7 +106,8 @@ class AddBills extends Component {
   loadProperty = (id) => {
     var token = localStorage.getItem('token')
     api.getFlatsList(token, id).then(res => {
-      this.setState({myFlat: res, myBills: res.bills})
+      const bills = res.bills.length > 1 ? res.bills : this.initialMyBills
+      this.setState({myFlat: res, myBills: bills})
     }).catch(error => {
       console.log(error)
     })
@@ -153,13 +156,14 @@ class AddBills extends Component {
     )
   }
 
-  handeChange = (e) => {
+  handleChange = (e) => {
     const {propertyID} = this.state
     const name = e.target.name
     let formData = Object.assign({}, this.state.formData);
         formData[e.target.name] = e.target.value;
         this.setState({formData})
-        api.calculateBill(propertyID, e.target.value, name).then(res => {
+        let val = e.target.value === '' ? '0' : e.target.value
+        api.calculateBill(propertyID, val, name).then(res => {
           let amountTab = Object.assign({}, this.state.amountTab)
           amountTab[name] = res
           this.setState({ amountTab })
@@ -179,7 +183,7 @@ class AddBills extends Component {
     return (
       <tr>
         <th>{label}</th>
-        <td><input type='number' name={name} className="input-in-table" onChange={this.handeChange} value={this.state.formData[name]}/></td>
+        <td><input type='number' name={name} className="input-in-table" onChange={this.handleChange} value={this.state.formData[name]}/></td>
         <td>{obj.unit}</td>
         <td>{used}</td>
         <td>{obj.rate} {obj.currency}</td>
@@ -197,10 +201,127 @@ class AddBills extends Component {
   }
 
   onFormSubmit = () => {
-    const { startDate, formData} = this.state
+    const { startDate, formData, amountTab, propertyID} = this.state
     let dateToSend = moment(startDate).format('YYYY/MM/DD');
     this.setState({ formData: this.initialStateForm})
-    console.log(formData, dateToSend)
+    const dataToSend = {
+      coldWater: {
+        amount: amountTab.coldWater.amount,
+        currency: "PLN",
+        date: dateToSend,
+        rate: amountTab.coldWater.rate,
+        status: formData.coldWater,
+        unit: "m3",
+        used: amountTab.coldWater.used
+      },
+      commonPart: {
+        amount: "1",
+        currency: "PLN",
+        date: dateToSend,
+        rate: "2",
+        status: "123",
+        unit: "-",
+        used: "0"
+      },
+      electricity: {
+        amount: amountTab.electricity.amount,
+        currency: "PLN",
+        date: dateToSend,
+        rate: amountTab.electricity.rate,
+        status: formData.electricity,
+        unit: "kWh",
+        used: amountTab.electricity.used
+      },
+      heating: {
+        amount: amountTab.heating.amount,
+        currency: "PLN",
+        date: dateToSend,
+        rate: amountTab.heating.rate,
+        status: formData.heating,
+        unit: "GJ",
+        used: amountTab.heating.used
+      },
+      hotWater: {
+        amount: amountTab.hotWater.amount,
+        currency: "PLN",
+        date: dateToSend,
+        rate: amountTab.hotWater.rate,
+        status: formData.hotWater,
+        unit: "m3",
+        used: amountTab.hotWater.used
+      },
+      repairFund: {
+        amount: amountTab.repairFund.amount,
+        currency: "PLN",
+        date: dateToSend,
+        rate: amountTab.repairFund.rate,
+        status: formData.repairFund,
+        unit: "-",
+        used: amountTab.repairFund.used
+      },
+      trash: {
+        amount: amountTab.trash.amount,
+        currency: "PLN",
+        date: dateToSend,
+        rate: amountTab.trash.rate,
+        status: formData.trash,
+        unit: "os.",
+        used: amountTab.repairFund.used
+      }
+    }
+
+    api.createBill(propertyID, dataToSend).then(res => {
+      if(res.status === 200 ) {
+        swal({
+          title: "Czy chcesz wystawić fakturę",
+          text: "Wystaw fakturę na podstawie tego rachunku!",
+          icon: "success",
+          buttons: {
+            cancel: "Anuluj",
+            catch: {
+              text: "Wygeneruj fakturę",
+              value: "accept",
+            },
+          },
+        }).then((value) => {
+          switch (value) {
+            case "accept":
+            api.createInvoice(propertyID, res.data.id).then(res => {
+              console.log(res)
+              swal({
+                title: "Brawo!!",
+                text: "Wygenerowałeś fakturę, to twój kolejny przychód",
+                icon: "success",
+                button: "OK",
+                content: (
+                  <div>
+                    <a rel="noopener noreferrer" target="_blank" href={res.data}>pobierz fakturę</a>
+                  </div>
+                )
+              
+              })
+            })
+              break;
+              default:
+                swal("Zawsze mozesz wygenerować fakturę korzystając z przycisku 'Generuj fakturę' na karcie rachunku!");
+          }          
+        });
+      } else {
+        swal({
+          title: "Coś poszło nie tak",
+          text: "Bardzo przepraszamy niestety nie udało się dodać nieruchomości, spróbuj ponownie",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        }).then( () => {
+          this.setState(this.InitialState )
+        })
+      }
+      this.setState({myBills: this.initialMyBills, amountTab: this.initialStateForm})
+      this.loadProperty(propertyID)
+    }).catch(error => {
+      console.log(error)
+    })
   }
 
   render(){
@@ -251,7 +372,7 @@ class AddBills extends Component {
           </div>
         </CardComponent>
       </section>
-      <section className="d-lg-flex">
+      <section className="d-lg-flex flex-wrap">
         {myBills.map((bill, index) => this.generateMyBillsTable(bill, index))}
       </section>
       </ React.Fragment>

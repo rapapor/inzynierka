@@ -59,6 +59,20 @@ class API {
     
   }
 
+  createBill(propertyId, dataToSend ){
+    var token = localStorage.getItem('token')
+    return axios.post(`${this.baseURL}/properties/${propertyId}/bills`,dataToSend, {
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+        'Authorization': 'Bearer ' + token
+      }})
+      .then(res => {
+        return res
+      }).catch(error => {
+        console.log(error)
+      })
+  }
+
   calculateBill(id, status, billType) {
     var token = localStorage.getItem('token')
     const type = getCurrentPositionType(billType)
@@ -74,6 +88,21 @@ class API {
         console.log(error)
       })
   }
+
+  createInvoice(propertyID, billID){
+    var token = localStorage.getItem('token')
+    return axios.get(`${this.baseURL}/properties/${propertyID}/bills/${billID}/invoice`, {
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+        'Authorization': 'Bearer ' + token
+      }})
+      .then(res => {
+        return res
+      }).catch(error => {
+        console.log(error)
+      })
+  }
+  
 
   getFlatsList(token,id = ''){
     return axios.get(`${this.baseURL}/properties/${id}`, {
