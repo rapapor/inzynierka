@@ -7,7 +7,7 @@ import houseIcon from './../../assets/images/ico-btn/ikony_all-02.png'
 import ad from './../../assets/images/ico-btn/ikony_all-11.png'
 import tenant from './../../assets/images/ico-btn/ikony_all-18.png'
 import invoice from './../../assets/images/ico-btn/ikony_all-15.png'
-import check from './../../assets/images/ico-btn/ikony_all-13.png'
+// import check from './../../assets/images/ico-btn/ikony_all-13.png'
 import options from './../../assets/images/ico-btn/ikony_all-03.png'
 
 import logo from './../../assets/images/logos/logo-01.png'
