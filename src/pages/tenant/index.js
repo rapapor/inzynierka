@@ -179,7 +179,7 @@ class Tenant extends Component {
                 id="inputGroupSelect01"
                 value={this.state.propertyId}
                 >
-                  {myFlats.map((flat, index) => <option key={flat.id} value={flat.id}>{flat.city} {flat.street}</option>)}
+                  {myFlats.map((flat, index) => flat.propertyStatus !== "RENTED" && <option key={flat.id} value={flat.id}>{flat.city} {flat.street}</option>)}
                 </select>
                 <Input
                 placeholder={'Imię'}

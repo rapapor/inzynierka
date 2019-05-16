@@ -1,3 +1,4 @@
+@import '../../utils/global.sass'
 .media-table
   font-size: 10px
 
@@ -40,6 +41,29 @@
   align-items: center
   .single-thumb-mobile
       display: none
+.additional-info-list
+  display: flex
+  justify-content: flex-start
+  align-items: center
+  margin: 20px
+  flex-wrap: wrap
+  .add-info-item
+    background: $statusBlue
+    color: #ffffff
+    padding: 5px 15px
+    border-radius: 7px
+    margin: 5px
+    position: relative
+.dataPicker-container    
+  display: flex
+  justify-content: center
+  align-items: center
+  margin-bottom: 20px
+  .dataPicker-item
+    border: solid 2px #1c75b3
+    padding: 10px
+    border-radius: 20px
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25), 0 3px 3px rgba(0, 0, 0, 0.22)
 
 @media screen and (max-width: 768px)
   .thumbnail-container-detail

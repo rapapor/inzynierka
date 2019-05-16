@@ -216,7 +216,7 @@ class Property extends Component {
     }
     if (alert.visible) {
       return <div key={alert.id} className={`alert ${alertType}`} role="alert">
-                 <p className="alert-desc">W dniu {alert.createdDate} z mieszkania {alert.flat_street} przyszło zgłoszenie o trści: {alert.description}</p>
+                 <p className="alert-desc">W dniu {alert.createdDate} z mieszkania {alert.flat_street}. Przyszło zgłoszenie o trści: {alert.description}</p>
                  <span className="resolve-alert" onClick={() => this.deleteAlert(alert.id, alert.flat_id)}>Usuń</span>
             </div>
     } else {

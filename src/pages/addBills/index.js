@@ -114,32 +114,40 @@ class AddBills extends Component {
   }
 
   genInvoice = (billID) => {
-    const {propertyID} =this.state
-    api.createInvoice(propertyID, billID).then(res => {
-      if(res && res.status === 200 ) {
-        swal({
-          title: "Brawo!!",
-          text: "Wygenerowałeś fakturę, to twój kolejny przychód",
-          icon: "success",
-          button: "OK",
-          content: (
-            <div>
-              <a rel="noopener noreferrer" target="_blank" href={res.data}>pobierz fakturę</a>
-            </div>
-          )
-        })
-      } else {
-        swal({
-          title: "Coś poszło nie tak",
-          text: "Bardzo przepraszamy niestety nie udało się wygenerować faktury, spróbuj ponownie",
-          icon: "warning",
-          buttons: true,
-          dangerMode: true,
-        }).then( () => {
-          this.setState(this.InitialState )
-        })
-      }
-    })
+    const {propertyID, myFlat} =this.state
+    if(myFlat.propertyStatus === "RENTED") {
+      api.createInvoice(propertyID, billID).then(res => {
+        if(res && res.status === 200 ) {
+          swal({
+            title: "Brawo!!",
+            text: "Wygenerowałeś fakturę, to twój kolejny przychód",
+            icon: "success",
+            button: "OK",
+            content: (
+              <div>
+                <a rel="noopener noreferrer" target="_blank" href={res.data}>pobierz fakturę</a>
+              </div>
+            )
+          })
+        } else {
+          swal({
+            title: "Coś poszło nie tak",
+            text: "Bardzo przepraszamy niestety nie udało się wygenerować faktury, spróbuj ponownie",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          }).then( () => {
+            this.setState(this.InitialState )
+          })
+        }
+      })
+    } else {
+      swal({
+        title: "Mieszkanie nie jest wynajęte",
+        text: "Aby wystawić fakturę najpierw przypisz najemcę do mieszkania",
+        icon: "info"
+      })
+    }
   }
 
   deleteBill = (billID) => {
@@ -261,7 +269,7 @@ class AddBills extends Component {
   }
 
   onFormSubmit = () => {
-    const { startDate, formData, amountTab, propertyID} = this.state
+    const { startDate, formData, amountTab, propertyID, myFlat} = this.state
     let dateToSend = moment(startDate).format('YYYY/MM/DD');
     this.setState({ formData: this.initialStateForm})
     const dataToSend = {
@@ -331,27 +339,36 @@ class AddBills extends Component {
     }
 
     api.createBill(propertyID, dataToSend).then(res => {
-      if(res.status === 200 ) {
-        swal({
-          title: "Czy chcesz wystawić fakturę",
-          text: "Wystaw fakturę na podstawie tego rachunku!",
-          icon: "success",
-          buttons: {
-            cancel: "Anuluj",
-            catch: {
-              text: "Wygeneruj fakturę",
-              value: "accept",
+      if(res.status === 200) {
+        if(myFlat.propertyStatus === "RENTED") {
+          swal({
+            title: "Czy chcesz wystawić fakturę",
+            text: "Wystaw fakturę na podstawie tego rachunku!",
+            icon: "success",
+            buttons: {
+              cancel: "Anuluj",
+              catch: {
+                text: "Wygeneruj fakturę",
+                value: "accept",
+              },
             },
-          },
-        }).then((value) => {
-          switch (value) {
-            case "accept":
-            this.genInvoice(res.data.id)
-            break;
-            default:
-              swal("Zawsze mozesz wygenerować fakturę korzystając z przycisku 'Generuj fakturę' na karcie rachunku!");
-          }          
-        });
+          }).then((value) => {
+            switch (value) {
+              case "accept":
+              this.genInvoice(res.data.id)
+              break;
+              default:
+                swal("Zawsze mozesz wygenerować fakturę korzystając z przycisku 'Generuj fakturę' na karcie rachunku!");
+            }          
+          });
+        } else {
+          swal({
+            title: "Mieszkanie nie jest wynajęte",
+            text: "Aby wystawić fakturę najpierw przypisz najemcę do mieszkania",
+            icon: "info"
+          })
+        }
+        
       } else {
         swal({
           title: "Coś poszło nie tak",
@@ -372,6 +389,7 @@ class AddBills extends Component {
 
   render(){
     const { myFlat, myBills } = this.state
+    console.log(myFlat)
     return (
       <React.Fragment>
       <Menu />
@@ -381,18 +399,35 @@ class AddBills extends Component {
             {myFlat.imagesUrls && myFlat.imagesUrls.map((image, index) => this.genImageSingleProperty(image, index))}
           </div>
           <div className="d-flex mt-5">
-          <div className="col-sm-3">
-            <p>cena</p>
+            <div className="col-sm-3">
+              <p><label>Kaucja: </label> <span>{myFlat.bail}</span></p>
+              <p><label>Czynsz: </label> <span>{myFlat.price}</span></p>
+              <p><label>Metraż</label> <span>{myFlat.surface}</span></p>
+              <p><label></label><span></span></p>
+              <p><label></label><span></span></p>
+            </div>
+            <div className="col-sm-9">
+              <p><label>Opis:</label> <span>{myFlat.description}</span></p>
+              <p><label>Rodzaj budynku:</label> <span>{myFlat.buildingType}</span></p>
+              <p><label>Liczba pokoi:</label> <span>{myFlat.roomsNumber}</span></p>
+              <p><label>Ilość okien:</label> <span>{myFlat.windows}</span></p>
+              <p><label>Materiał:</label> <span>{myFlat.buildingMaterial}</span></p>
+              <p><label></label><span></span></p>
+            </div>
+            
           </div>
-          <div className="col-sm-9">
-            <p>opis</p>
-          </div>
+          <div className="additional-info-list">
+            {myFlat.additionalInformation && myFlat.additionalInformation.map((item, index) => <div className="add-info-item" key={index}>{item}</div>)}
           </div>
         </CardComponent>
       </section>
       <section className="col-sm-12">
         <CardComponent label={`Wystaw rachunek`}>
-        <DatePicker selected={this.state.startDate} onChange={this.handleChangeDate} dateFormat='YYYY/MM/dd' />
+        <div className="dataPicker-container">
+          <div className="dataPicker-item">
+            <DatePicker selected={this.state.startDate} onChange={this.handleChangeDate} dateFormat='YYYY/MM/dd' />
+          </div>
+        </div>
         <table className="table table-striped text-center">
             <thead>
               <tr>
