@@ -11,8 +11,22 @@ class API {
   login(user){
     return axios.post(`${this.baseURL}/auth/`,
     user)
+    .then(res => {
+      return res.data
+    }).catch(error => {
+      console.log(error)
+    })
+  }
+
+  resolveAlert(propID, alertID){
+    var token = localStorage.getItem('token')
+    return axios.put(`${this.baseURL}/properties/${propID}/alerts/${alertID}`,{visible: false}, {
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+        'Authorization': 'Bearer ' + token
+      }})
       .then(res => {
-        return res.data
+        return res
       }).catch(error => {
         console.log(error)
       })
@@ -62,6 +76,19 @@ class API {
   createBill(propertyId, dataToSend ){
     var token = localStorage.getItem('token')
     return axios.post(`${this.baseURL}/properties/${propertyId}/bills`,dataToSend, {
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+        'Authorization': 'Bearer ' + token
+      }})
+      .then(res => {
+        return res
+      }).catch(error => {
+        console.log(error)
+      })
+  }
+  deleteBill(propertyId, billId) {
+    var token = localStorage.getItem('token')
+    return axios.delete(`${this.baseURL}/properties/${propertyId}/bills/${billId}`, {
       headers: {
         'Content-Type': 'application/json;charset=UTF-8',
         'Authorization': 'Bearer ' + token

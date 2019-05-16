@@ -1,3 +1,34 @@
+
+export const alerts = [{
+    alertType: "PAYMENT",
+    createdDate: "2013-09-08",
+    description: "PŁATNOŚĆ",
+    id: 1,
+    visible: true
+  },
+  {
+    alertType: "DAMAGES",
+    createdDate: "2013-09-08",
+    description: "USZKODZENIE",
+    id: 2,
+    visible: true,
+  },
+  {
+    alertType: "COMPLAINT",
+    createdDate: "2013-09-08",
+    description: "ZAŻALENIE",
+    id: 3,
+    visible: true
+  },
+  {
+    alertType: "EQUIPMENT",
+    createdDate: "2013-09-08",
+    description: "WYPOSAŻENIE",
+    id: 4,
+    visible: true
+  }
+]
+
 export const tenants = [
   {
     name: 'Gerald',

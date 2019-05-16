@@ -14,7 +14,8 @@ class Property extends Component {
     super(props)
     this.state = {
       myFlats: [],
-      propertyId: false
+      propertyId: false,
+      alertsArr: []
     }
     this.adresRef = React.createRef();
   }
@@ -26,8 +27,14 @@ class Property extends Component {
   loadFlats = () => {
     var token = localStorage.getItem('token')
     api.getFlatsList(token).then(res => {
-      console.log(res)
-      this.setState({myFlats: res})
+      this.setState({
+        myFlats: res,
+        alertsArr: res.map(
+          flat => flat.alerts.map(
+            a => { return {...a, flat_id: flat.id, flat_street: flat.street} }
+          )
+        ).flat()
+      })      
     }).catch(error => {
       console.log(error)
     })
@@ -141,10 +148,85 @@ class Property extends Component {
       )
     })
   }
+
+  deleteAlert = (alertID, propertyID) => {
+    swal({
+      title: "Usuwasz / rozwiązujesz ten alert",
+      text: "Jeżeli usuniesz ten alert tzn że został rozwiązany i już go nie zobaczysz",
+      icon: "warning",
+      buttons: {
+        cancel: "Anuluj",
+        accept: {
+          text: "Chcę usunąc alert",
+          value: "accept"
+        },
+      },
+    }).then((value) => {
+      switch (value) {
+        case "accept":
+        api.resolveAlert(propertyID,alertID).then(res => {
+          if (res && res.status === 200) {
+            swal({
+              title: "Brawo!!",
+              text: "Rozwiązałeś kolejny problem",
+              icon: "success",
+              button: "OK",
+            }).then( () => {
+              this.loadFlats()
+            })
+          } else {
+            swal({
+              title: "Coś poszło nie tak",
+              text: "Bardzo przepraszamy niestety nie udało się usunąć alertu, spróbuj ponownie",
+              icon: "warning",
+              buttons: true,
+              dangerMode: true,
+            }).then( () => {
+              this.loadFlats()
+            })
+          }
+        })
+        break;
+        default:
+        swal("Przed usunięciem alertów upewnij się czy zostały rozwiązane")
+      }
+    })
+    
+  }
   
 
+  generateAlert = (alert) => {
+    let alertType = 'alert-primary'
+    switch (alert.alertType) {
+      case "PAYMENT":
+        alertType = 'alert-warning'
+        break;
+      case "DAMAGES":
+        alertType = 'alert-danger'
+        break;
+      case "COMPLAINT":
+        alertType = 'alert-dark'
+        break;
+      case "EQUIPMENT":
+        alertType = 'alert-primary'
+        break;
+      default:
+        alertType = 'alert-secondary'
+        break;
+    }
+    if (alert.visible) {
+      return <div key={alert.id} className={`alert ${alertType}`} role="alert">
+                 <p className="alert-desc">W dniu {alert.createdDate} z mieszkania {alert.flat_street} przyszło zgłoszenie o trści: {alert.description}</p>
+                 <span className="resolve-alert" onClick={() => this.deleteAlert(alert.id, alert.flat_id)}>Usuń</span>
+            </div>
+    } else {
+      return false
+    }
+    
+  }
+
   render(){
-    const { myFlats, propertyId } = this.state
+    const { myFlats, propertyId, alertsArr } = this.state
     if(!localStorage.getItem('token')){
       return (
         <Redirect to="/login/" />
@@ -154,6 +236,9 @@ class Property extends Component {
     }
     return (
       <section className="section-property">
+      <div className="alert-section">
+        {alertsArr.map(alert => this.generateAlert(alert))}
+      </div>
         <header className='button-property-container'>
           <Link to='/add-property/'><Button type={'accept'} icon={plusIcon} label={'Dodaj'} /></Link>
         </header>

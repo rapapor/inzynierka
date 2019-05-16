@@ -113,10 +113,70 @@ class AddBills extends Component {
     })
   }
 
+  genInvoice = (billID) => {
+    const {propertyID} =this.state
+    api.createInvoice(propertyID, billID).then(res => {
+      if(res && res.status === 200 ) {
+        swal({
+          title: "Brawo!!",
+          text: "Wygenerowałeś fakturę, to twój kolejny przychód",
+          icon: "success",
+          button: "OK",
+          content: (
+            <div>
+              <a rel="noopener noreferrer" target="_blank" href={res.data}>pobierz fakturę</a>
+            </div>
+          )
+        })
+      } else {
+        swal({
+          title: "Coś poszło nie tak",
+          text: "Bardzo przepraszamy niestety nie udało się wygenerować faktury, spróbuj ponownie",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        }).then( () => {
+          this.setState(this.InitialState )
+        })
+      }
+    })
+  }
+
+  deleteBill = (billID) => {
+    const { propertyID } =this.state
+    api.deleteBill(propertyID, billID).then(res => {
+      if( res && res.status === 200) {
+        swal({
+          title: "Bill został usunięty",
+          text: "Aby wygenerować nowy rachunek wypełnij formularz",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        }).then( () => {
+          this.loadProperty(propertyID)
+        })
+      } else {
+        swal({
+          title: "Coś poszło nie tak",
+          text: "Bardzo przepraszamy niestety nie udało się usunąć rachunku, spróbuj ponownie",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        }).then( () => {
+          this.setState(this.InitialState )
+        })
+      }
+    })
+  }
+
   generateMyBillsTable = (bill, index) => {
     return (
       <section key={index} className="col-lg-6 col-sm-12 media-table">
         <CardComponent label={`Rachunki i zużycia z dnia ${bill.coldWater.date}`}>
+          <div className="genInvoice-button">
+            <span className="genInvoice-button--action" onClick={() => this.genInvoice(bill.id)}>Wygeneruj fakturę</span>
+            <span className="genInvoice-button--delete" onClick={() => this.deleteBill(bill.id)}>Usuń</span>
+            </div>
           <table key={index} className="table table-sm table-striped text-center">
             <thead>
               <tr>
@@ -286,30 +346,16 @@ class AddBills extends Component {
         }).then((value) => {
           switch (value) {
             case "accept":
-            api.createInvoice(propertyID, res.data.id).then(res => {
-              console.log(res)
-              swal({
-                title: "Brawo!!",
-                text: "Wygenerowałeś fakturę, to twój kolejny przychód",
-                icon: "success",
-                button: "OK",
-                content: (
-                  <div>
-                    <a rel="noopener noreferrer" target="_blank" href={res.data}>pobierz fakturę</a>
-                  </div>
-                )
-              
-              })
-            })
-              break;
-              default:
-                swal("Zawsze mozesz wygenerować fakturę korzystając z przycisku 'Generuj fakturę' na karcie rachunku!");
+            this.genInvoice(res.data.id)
+            break;
+            default:
+              swal("Zawsze mozesz wygenerować fakturę korzystając z przycisku 'Generuj fakturę' na karcie rachunku!");
           }          
         });
       } else {
         swal({
           title: "Coś poszło nie tak",
-          text: "Bardzo przepraszamy niestety nie udało się dodać nieruchomości, spróbuj ponownie",
+          text: "Bardzo przepraszamy niestety nie udało się dodać rachunku, spróbuj ponownie",
           icon: "warning",
           buttons: true,
           dangerMode: true,
