@@ -47,7 +47,7 @@ class API {
   }
 
   deleteTenant(id, token) {
-    return axios.delete(`${this.baseURL}/tenats/${id}`, {
+    return axios.put(`${this.baseURL}/tenats/${id}`, {visible: false},{
       headers: {
         'Content-Type': 'application/json;charset=UTF-8',
         'Authorization': 'Bearer ' + token
@@ -88,7 +88,7 @@ class API {
   }
   deleteBill(propertyId, billId) {
     var token = localStorage.getItem('token')
-    return axios.delete(`${this.baseURL}/properties/${propertyId}/bills/${billId}`, {
+    return axios.put(`${this.baseURL}/properties/${propertyId}/bills/${billId}`, {visible: false},{
       headers: {
         'Content-Type': 'application/json;charset=UTF-8',
         'Authorization': 'Bearer ' + token
@@ -116,9 +116,38 @@ class API {
       })
   }
 
+  getAllBills(propertID) {
+    var token = localStorage.getItem('token')
+    return axios.get(`${this.baseURL}/properties/${propertID}/bills`, {
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+        'Authorization': 'Bearer ' + token
+      }
+    })
+      .then(res => {
+        return res.data
+      }).catch(error => {
+        console.log(error)
+      })
+  }
+
   createInvoice(propertyID, billID){
     var token = localStorage.getItem('token')
     return axios.get(`${this.baseURL}/properties/${propertyID}/bills/${billID}/invoice`, {
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+        'Authorization': 'Bearer ' + token
+      }})
+      .then(res => {
+        return res
+      }).catch(error => {
+        console.log(error)
+      })
+  }
+
+  updateInvoices(propertyID, invoiceID, myInvoice){
+    var token = localStorage.getItem('token')
+    return axios.put(`${this.baseURL}/properties/${propertyID}/invoices/${invoiceID}`, myInvoice,{
       headers: {
         'Content-Type': 'application/json;charset=UTF-8',
         'Authorization': 'Bearer ' + token
@@ -180,7 +209,7 @@ class API {
   }
 
   deleteProperty(id, token) {
-    return axios.delete(`${this.baseURL}/properties/${id}`, {
+    return axios.put(`${this.baseURL}/properties/${id}`, {visible: false }, {
       headers: {
         'Content-Type': 'application/json;charset=UTF-8',
         'Authorization': 'Bearer ' + token

@@ -19,7 +19,7 @@ export const getCurrentPositionType = (types) => {
     break;
     case 'repairFund':
       type = 'REPAIR_FOUND'
-      rate = '1'
+      rate = '70'
     break;
     case 'heating':
       type = 'HEATING'

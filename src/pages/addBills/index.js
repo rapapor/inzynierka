@@ -23,7 +23,7 @@ class AddBills extends Component {
       currency: "PLN",
       date: "",
       id: 0,
-      rate: "0",
+      rate: "14.36",
       unit: "m3",
       used: "0"
     },
@@ -32,7 +32,7 @@ class AddBills extends Component {
       currency: "PLN",
       date: "",
       id: 0,
-      rate: "0",
+      rate: "12",
       unit: "",
       used: "0"
     },
@@ -41,7 +41,7 @@ class AddBills extends Component {
       currency: "PLN",
       date: "",
       id: 0,
-      rate: "0",
+      rate: "0.62",
       unit: "kWh",
       used: "0"
     },
@@ -50,7 +50,7 @@ class AddBills extends Component {
       currency: "PLN",
       date: "",
       id: 0,
-      rate: "0",
+      rate: "80",
       unit: "GJ",
       used: "0"
     },
@@ -59,7 +59,7 @@ class AddBills extends Component {
       currency: "PLN",
       date: "",
       id: 0,
-      rate: "0",
+      rate: "28.36",
       unit: "m3",
       used: "0"
     },
@@ -68,7 +68,7 @@ class AddBills extends Component {
       currency: "PLN",
       date: "",
       id: 0,
-      rate: "0",
+      rate: "70",
       unit: " - ",
       used: "0"
     },
@@ -77,7 +77,7 @@ class AddBills extends Component {
       currency: "PLN",
       date: "",
       id: 0,
-      rate: "0",
+      rate: "15",
       unit: "os.",
       used: "0"
     }
@@ -106,11 +106,18 @@ class AddBills extends Component {
   loadProperty = (id) => {
     var token = localStorage.getItem('token')
     api.getFlatsList(token, id).then(res => {
-      const bills = res.bills.length > 1 ? res.bills : this.initialMyBills
-      this.setState({myFlat: res, myBills: bills})
+      this.setState({myFlat: res})
     }).catch(error => {
       console.log(error)
     })
+    api.getAllBills(id).then(res => {
+      if (res.length > 1) {
+        this.setState({myBills: res})
+      }
+    }).catch(error => {
+      console.log(error)
+    })
+
   }
 
   genInvoice = (billID) => {
@@ -389,7 +396,7 @@ class AddBills extends Component {
 
   render(){
     const { myFlat, myBills } = this.state
-    console.log(myFlat)
+    console.log(myBills)
     return (
       <React.Fragment>
       <Menu />

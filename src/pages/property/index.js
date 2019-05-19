@@ -109,7 +109,6 @@ class Property extends Component {
     }).catch(error => {
       console.log(error)
     })
-    
   }
 
   handleChangeStatus = (id) => {
@@ -227,6 +226,7 @@ class Property extends Component {
 
   render(){
     const { myFlats, propertyId, alertsArr } = this.state
+    console.log(alertsArr)
     if(!localStorage.getItem('token')){
       return (
         <Redirect to="/login/" />
