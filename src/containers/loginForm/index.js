@@ -48,7 +48,7 @@ class LoginForm extends Component {
       }
       api.login(user).then(res => {
         setToken(res.token)
-        window.location.replace('/estate/')
+        window.location.replace('/dashboard/')
       }).catch(error => {
         console.log(error)
       })

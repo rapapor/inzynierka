@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Menu from './../../containers/menu'
+import MainWrapper from './../../components/mainWrapper'
 import CardComponent from './../../components/cardComponent'
 import Button from './../../components/button'
 import DatePicker from "react-datepicker"
@@ -189,20 +190,20 @@ class AddBills extends Component {
       <section key={index} className="col-lg-6 col-sm-12 media-table">
         <CardComponent label={`Rachunki i zużycia z dnia ${bill.coldWater.date}`}>
           <div className="genInvoice-button">
-            <span className="genInvoice-button--action" onClick={() => this.genInvoice(bill.id)}>Wygeneruj fakturę</span>
-            <span className="genInvoice-button--delete" onClick={() => this.deleteBill(bill.id)}>Usuń</span>
+            <Button type="primary" label={'Wygeneruj fakturę'} btnType={'submit'} onClick={() => this.genInvoice(bill.id)}/>
+            <Button type="danger" label={'Usuń'} btnType={'submit'} onClick={() => this.deleteBill(bill.id)}/>
             </div>
-          <table key={index} className="table table-sm table-striped text-center">
-            <thead>
-              <tr>
-                <th>Nazwa</th>
-                <th>Stan licznika</th>
-                <th>Symb. j.m.</th>
-                <th>Ilość</th>
-                <th>Cena jednostkowa</th>
-                <th>Kwota</th>
-              </tr>
-            </thead>
+            <table key={index} className="table">
+              <thead className="text-primary">
+                <tr>
+                  <th>Nazwa</th>
+                  <th>Stan licznika</th>
+                  <th>Symb. j.m.</th>
+                  <th>Ilość</th>
+                  <th>Cena jednostkowa</th>
+                  <th>Kwota</th>
+                </tr>
+              </thead>
             <tbody>
               {this.genTrTable('Zimna woda', bill.coldWater)}
               {this.genTrTable('Energia elektryczna', bill.electricity)}
@@ -258,7 +259,7 @@ class AddBills extends Component {
     return (
       <tr>
         <th>{label}</th>
-        <td><input type='number' name={name} className="input-in-table" onChange={this.handleChange} value={this.state.formData[name]}/></td>
+        <td><input type='number' name={name} className="form-control" onChange={this.handleChange} value={this.state.formData[name]}/></td>
         <td>{obj.unit}</td>
         <td>{used}</td>
         <td>{obj.rate} {obj.currency}</td>
@@ -399,70 +400,70 @@ class AddBills extends Component {
     console.log(myBills)
     return (
       <React.Fragment>
-      <Menu />
-      <section className="col-sm-12">
-        <CardComponent label={`Mieszkanie: ${myFlat.city} ${myFlat.street}`}>
-          <div className="head-property-detail col-xs-12 col-sm-12">
-            {myFlat.imagesUrls && myFlat.imagesUrls.map((image, index) => this.genImageSingleProperty(image, index))}
-          </div>
-          <div className="d-flex mt-5">
-            <div className="col-sm-3">
-              <p><label>Kaucja: </label> <span>{myFlat.bail}</span></p>
-              <p><label>Czynsz: </label> <span>{myFlat.price}</span></p>
-              <p><label>Metraż</label> <span>{myFlat.surface}</span></p>
-              <p><label></label><span></span></p>
-              <p><label></label><span></span></p>
+        <Menu />
+        <MainWrapper>
+          <CardComponent label={`Mieszkanie: ${myFlat.city} ${myFlat.street}`} description="lorem ipsum">
+            <div className="head-property-detail col-xs-12 col-sm-12">
+              {myFlat.imagesUrls && myFlat.imagesUrls.map((image, index) => this.genImageSingleProperty(image, index))}
             </div>
-            <div className="col-sm-9">
-              <p><label>Opis:</label> <span>{myFlat.description}</span></p>
-              <p><label>Rodzaj budynku:</label> <span>{myFlat.buildingType}</span></p>
-              <p><label>Liczba pokoi:</label> <span>{myFlat.roomsNumber}</span></p>
-              <p><label>Ilość okien:</label> <span>{myFlat.windows}</span></p>
-              <p><label>Materiał:</label> <span>{myFlat.buildingMaterial}</span></p>
-              <p><label></label><span></span></p>
+            <div className="d-flex mt-5">
+              <div className="col-sm-3">
+                <p><label>Kaucja: </label> <span>{myFlat.bail}</span></p>
+                <p><label>Czynsz: </label> <span>{myFlat.price}</span></p>
+                <p><label>Metraż</label> <span>{myFlat.surface}</span></p>
+                <p><label></label><span></span></p>
+                <p><label></label><span></span></p>
+              </div>
+              <div className="col-sm-9">
+                <p><label>Opis:</label> <span>{myFlat.description}</span></p>
+                <p><label>Rodzaj budynku:</label> <span>{myFlat.buildingType}</span></p>
+                <p><label>Liczba pokoi:</label> <span>{myFlat.roomsNumber}</span></p>
+                <p><label>Ilość okien:</label> <span>{myFlat.windows}</span></p>
+                <p><label>Materiał:</label> <span>{myFlat.buildingMaterial}</span></p>
+                <p><label></label><span></span></p>
+              </div>
+              
             </div>
-            
+            <div className="additional-info-list">
+              {myFlat.additionalInformation && myFlat.additionalInformation.map((item, index) => <div className="add-info-item" key={index}>{item}</div>)}
+            </div>
+          </CardComponent>
+        
+      
+          <CardComponent label={`Wystaw rachunek`}>
+          <div className="dataPicker-container">
+            <div className="dataPicker-item">
+              <DatePicker className="form-control" selected={this.state.startDate} onChange={this.handleChangeDate} dateFormat='YYYY/MM/dd' />
+            </div>
           </div>
-          <div className="additional-info-list">
-            {myFlat.additionalInformation && myFlat.additionalInformation.map((item, index) => <div className="add-info-item" key={index}>{item}</div>)}
-          </div>
-        </CardComponent>
-      </section>
-      <section className="col-sm-12">
-        <CardComponent label={`Wystaw rachunek`}>
-        <div className="dataPicker-container">
-          <div className="dataPicker-item">
-            <DatePicker selected={this.state.startDate} onChange={this.handleChangeDate} dateFormat='YYYY/MM/dd' />
-          </div>
-        </div>
-        <table className="table table-striped text-center">
-            <thead>
-              <tr>
-                <th>Nazwa</th>
-                <th>Stan licznika</th>
-                <th>Symb. j.m.</th>
-                <th>Ilość</th>
-                <th>Cena jedn.</th>
-                <th>Kwota</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.genTrTableWithInput('Zimna woda', myBills[0].coldWater, 'coldWater')}
-              {this.genTrTableWithInput('Energia elektryczna', myBills[0].electricity, 'electricity')}
-              {this.genTrTableWithInput('Ogrzewanie CO2', myBills[0].heating, 'heating')}
-              {this.genTrTableWithInput('Ciepła woda', myBills[0].hotWater, 'hotWater')}
-              {this.genTrTableWithInput('Śmieci', myBills[0].trash, 'trash')}
-              {this.genTrTableWithInput('Fundusz remontowy', myBills[0].repairFund, 'repairFund')}
-            </tbody>
-          </table>
-          <div className="confirm-btn-container">
-            <Button type="accept" label={'Zapisz'} btnType={'submit'} onClick={this.onFormSubmit}/>
-          </div>
-        </CardComponent>
-      </section>
-      <section className="d-lg-flex flex-wrap">
-        {myBills.map((bill, index) => this.generateMyBillsTable(bill, index))}
-      </section>
+          <table className="table">
+              <thead className="text-primary">
+                <tr>
+                  <th>Nazwa</th>
+                  <th>Stan licznika</th>
+                  <th>Symb. j.m.</th>
+                  <th>Ilość</th>
+                  <th>Cena jedn.</th>
+                  <th>Kwota</th>
+                </tr>
+              </thead>
+              <tbody>
+                {this.genTrTableWithInput('Zimna woda', myBills[0].coldWater, 'coldWater')}
+                {this.genTrTableWithInput('Energia elektryczna', myBills[0].electricity, 'electricity')}
+                {this.genTrTableWithInput('Ogrzewanie CO2', myBills[0].heating, 'heating')}
+                {this.genTrTableWithInput('Ciepła woda', myBills[0].hotWater, 'hotWater')}
+                {this.genTrTableWithInput('Śmieci', myBills[0].trash, 'trash')}
+                {this.genTrTableWithInput('Fundusz remontowy', myBills[0].repairFund, 'repairFund')}
+              </tbody>
+            </table>
+            <div className="confirm-btn-container">
+              <Button type="accept" label={'Zapisz'} btnType={'submit'} onClick={this.onFormSubmit}/>
+            </div>
+          </CardComponent>
+          <section className="d-lg-flex flex-wrap">
+            {myBills.map((bill, index) => this.generateMyBillsTable(bill, index))}
+          </section>
+        </MainWrapper>
       </ React.Fragment>
       
     )

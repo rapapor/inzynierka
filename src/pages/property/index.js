@@ -6,6 +6,8 @@ import Button from './../../components/button'
 import SmallCardProperty from './../../components/smallCardProperty'
 import swal from '@sweetalert/with-react'
 import MoodButton from './../../components/moodbuttons'
+import MainWrapper from './../../components/mainWrapper'
+import CardComponent from './../../components/cardComponent'
 
 import './style.sass'
  
@@ -193,7 +195,6 @@ class Property extends Component {
     
   }
   
-
   generateAlert = (alert) => {
     let alertType = 'alert-primary'
     switch (alert.alertType) {
@@ -214,10 +215,15 @@ class Property extends Component {
         break;
     }
     if (alert.visible) {
-      return <div key={alert.id} className={`alert ${alertType}`} role="alert">
-                 <p className="alert-desc">W dniu {alert.createdDate} z mieszkania {alert.flat_street}. Przyszło zgłoszenie o trści: {alert.description}</p>
-                 <span className="resolve-alert" onClick={() => this.deleteAlert(alert.id, alert.flat_id)}>Usuń</span>
-            </div>
+      return  <a class="dropdown-item">
+                <div className={"alert alert-with-icon " + alertType} data-notify="container">
+                  <i class="material-icons" data-notify="icon">add_alert</i>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close" onClick={() => this.deleteAlert(alert.id, alert.flat_id)}>
+                    <i class="material-icons">Usuń</i>
+                  </button>
+                  <span data-notify="message">W dniu {alert.createdDate} z mieszkania {alert.flat_street}. Przyszło zgłoszenie o trści: {alert.description}</span>
+                </div>
+              </a>
     } else {
       return false
     }
@@ -235,18 +241,16 @@ class Property extends Component {
       return (<Redirect to={{pathname:"/add-bills/", state: {id: propertyId}}} />)
     }
     return (
-      <section className="section-property">
-      <div className="alert-section">
-        {alertsArr.map(alert => this.generateAlert(alert))}
-      </div>
-        <header className='button-property-container'>
-          <Link to='/add-property/'><Button type={'accept'} icon={plusIcon} label={'Dodaj'} /></Link>
-        </header>
-        <main className='main-container-property'>
-          {myFlats.map(flats => this.generateFlatsCard(flats))}
-        </main>
-        <footer></footer>
-      </section>
+      <MainWrapper>
+        <CardComponent label="Nieruchomości" description="lorem ipsum" >
+          <div className="row justify-content-end">
+            <Link to='/add-property/' className="btn-floating btn-large waves-effect waves-light blue"><i class="material-icons">add</i></Link>
+          </div>
+          <div className="row">
+            {myFlats.map(flats => this.generateFlatsCard(flats))}
+          </div>
+        </CardComponent>
+      </MainWrapper>
     )
   }
 }

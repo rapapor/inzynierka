@@ -1,12 +1,15 @@
 import React from 'react';
+import {  NavLink } from "react-router-dom";
 import './style.sass'
 
-const MenuButton = ({ label, onClick, icon, active }) => {
+const MenuButton = ({ label, onClick, icon, active, href, aditionalClassName }) => {
   return (
-    <div className='menu-button'>
-      {icon && <img src={icon} alt='btn-icon'/>}
-      <span className="menu-label">{label}</span>
-    </div>
+    <li className={`nav-item ${aditionalClassName}`} >
+      <NavLink className={`nav-link`} to={href}>
+        <i className="material-icons">{icon}</i>
+        <p>{label}</p>
+      </NavLink>
+    </li>
   )
 }
 

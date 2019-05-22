@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import CardComponent from './../../components/cardComponent'
+import MainWrapper from './../../components/mainWrapper'
 import changeArrow from './../../assets/images/arrowChange.png'
 import swal from '@sweetalert/with-react'
 import api from './../../api'
@@ -86,24 +87,24 @@ class Invoices extends Component {
   render(){
     const { myInvoices } = this.state
     return (
-      <section>
-        <CardComponent label={"Wystawione faktury"}>
-          <table className="table table-striped">
-              <thead>
-                <tr>
-                  <th>Mieszkanie</th>
-                  <th>Data wystawienia</th>
-                  <th>Link do faktury</th>
-                  <th>Status</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {myInvoices.map((invoice, index) => this.generateInvoiceList(invoice, index))}
-              </tbody>
-            </table>
+      <MainWrapper>
+        <CardComponent label={"Wystawione faktury"} description='lorem ipsum'>
+          <table className="table">
+              <thead className="text-primary">
+              <tr>
+                <th>Mieszkanie</th>
+                <th>Data wystawienia</th>
+                <th>Link do faktury</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {myInvoices.map((invoice, index) => this.generateInvoiceList(invoice, index))}
+            </tbody>
+          </table>
         </CardComponent>
-      </section>
+      </MainWrapper>
     )
   }
 }

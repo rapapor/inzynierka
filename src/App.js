@@ -9,6 +9,7 @@ import Logout from './pages/logout'
 import Tenant from './pages/tenant'
 import Invoices from './pages/invoices'
 import AddBills from './pages/addBills'
+import Dashboard from './pages/dashboard'
 
 import Menu from './containers/menu'
 
@@ -30,21 +31,20 @@ class App extends Component {
   render() {
     if (!localStorage.getItem('token')) {
       return (
-      <div className='container'>
         <Router>
           <Switch>
             <Route path="/" render={() => <LoginPages setToken={this.setToken}/>} />
           </Switch>
         </Router>
-      </div>
       )
     }
     return (
-      <div className='container'>
+      <div className='wrapper'>
         <Router>
           <Switch>
             <Route exact path="/" render={() => <Redirect to="/login" />} />
-            <Route path="/login" render={() => <LoginPages token={this.state.token} setToken={this.setToken}/>} />          
+            <Route path="/login" render={() => <LoginPages token={this.state.token} setToken={this.setToken}/>} />   
+            <Route path="/dashboard/" render={() => <React.Fragment> <Menu /> <Dashboard globalState={this.state}/></React.Fragment>} />       
             <Route path="/estate/" render={() => <React.Fragment> <Menu /> <Property globalState={this.state}/></React.Fragment>} />
             <Route path="/tenant/" render={() => <React.Fragment> <Menu /> <Tenant globalState={this.state}/></React.Fragment>} />
             <Route path="/invoices/" render={() => <React.Fragment> <Menu /> <Invoices globalState={this.state}/></React.Fragment>} />

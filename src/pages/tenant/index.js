@@ -4,8 +4,9 @@ import api from './../../api'
 import Input from './../../components/input'
 import Button from './../../components/button'
 import swal from '@sweetalert/with-react'
-
+import MainWrapper from './../../components/mainWrapper'
 import CardComponent from './../../components/cardComponent'
+
 import './style.sass'
  
 class Tenant extends Component {
@@ -135,7 +136,7 @@ class Tenant extends Component {
         <td>{tenant.email}</td>
         <td>{tenant.idNumber}</td>
         <td>{tenant.phoneNumber}</td>
-        <td><span onClick={() => this.deleteTenant(tenant.id)} className="delete-btn">&#10008;</span></td>
+        <td><button onClick={() => this.deleteTenant(tenant.id)} className="btn btn-danger btn-link btn-sm"><i class="material-icons" style={{top: '8px'}}>close</i></button></td>
       </tr>
     )
   }
@@ -148,83 +149,86 @@ class Tenant extends Component {
       )
     }
     return (
-      <section>
-        <main className="tenant-container">
-          <CardComponent label={"Twoi najemcy"}>
-            <table className="table table-striped">
-              <thead>
-                <tr>
-                  <th>Mieszkanie</th>
-                  <th>Imie</th>
-                  <th>Nazwisko</th>
-                  <th>Pesel</th>
-                  <th>Adres email</th>
-                  <th>Numer dowodu</th>
-                  <th>Telefon</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {myTenant.map(tenant => this.generateMyTenant(tenant))}
-              </tbody>
-            </table>
+      <MainWrapper>
+        <CardComponent label="Twoi najemcy" description='lorem ipsum'>
+          <table className="table">
+            <thead className="text-primary">
+              <tr>
+                <th>Mieszkanie</th>
+                <th>Imie</th>
+                <th>Nazwisko</th>
+                <th>Pesel</th>
+                <th>Adres email</th>
+                <th>Numer dowodu</th>
+                <th>Telefon</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {myTenant.map(tenant => this.generateMyTenant(tenant))}
+            </tbody>
+          </table>
+        </CardComponent>
 
-          </CardComponent>
-          <CardComponent label={"Dodaj najemce"}>
-            <div className="add-tenant-container">
-              <div className="single-section-add-tenant">
-                <select
-                onChange={this.handleChangeSelect}
-                className="custom-select"
-                id="inputGroupSelect01"
-                value={this.state.propertyId}
-                >
-                  {myFlats.map((flat, index) => flat.propertyStatus !== "RENTED" && <option key={flat.id} value={flat.id}>{flat.city} {flat.street}</option>)}
-                </select>
-                <Input
-                placeholder={'Imię'}
-                onChange={this.handleChange}
-                refs={this.nameInput}
-                value={this.state.name}
-                />
-                <Input 
-                placeholder={'Nazwisko'}
-                onChange={this.handleChange}
-                refs={this.lastNameInput}
-                value={this.state.lastName}
-                />
-              </div>
-              <div className="single-section-add-tenant">
-                <Input 
-                placeholder={'Pesel'}
-                onChange={this.handleChange}
-                refs={this.peselInput}
-                value={this.state.pesel}
-                />
-                <Input 
-                placeholder={'Numer dowodu'}
-                onChange={this.handleChange}
-                refs={this.idNumberInput}
-                value={this.state.idNumber}
-                />
-                <Input 
-                placeholder={'Adres email'}
-                onChange={this.handleChange}
-                refs={this.emailInput}
-                value={this.state.email}
-                />
-                <Input 
-                placeholder={'nr telefonu'}
-                onChange={this.handleChange}
-                refs={this.phoneNumberInput}
-                value={this.state.phoneNumber}
-                />
-              </div>
+        <CardComponent label="Dodaj najemnce" description='lorem ipsum'>
+          <select
+            onChange={this.handleChangeSelect}
+            className="form-control"
+            id="inputGroupSelect01"
+            value={this.state.propertyId}
+            >
+              {myFlats.map((flat, index) => flat.propertyStatus !== "RENTED" && <option key={flat.id} value={flat.id}>{flat.city} {flat.street}</option>)}
+            </select>
+
+            <div class="row">
+              <Input
+              placeholder={'Imię'}
+              onChange={this.handleChange}
+              refs={this.nameInput}
+              value={this.state.name}
+              />
+              <Input 
+              placeholder={'Nazwisko'}
+              onChange={this.handleChange}
+              refs={this.lastNameInput}
+              value={this.state.lastName}
+              />
+            </div>
+
+            <div class="row">
+              <Input 
+              placeholder={'Pesel'}
+              onChange={this.handleChange}
+              refs={this.peselInput}
+              value={this.state.pesel}
+              />
+              <Input 
+              placeholder={'Numer dowodu'}
+              onChange={this.handleChange}
+              refs={this.idNumberInput}
+              value={this.state.idNumber}
+              />
+            </div>
+
+            <div class="row">
+              <Input 
+              placeholder={'Adres email'}
+              onChange={this.handleChange}
+              refs={this.emailInput}
+              value={this.state.email}
+              />
+              <Input 
+              placeholder={'nr telefonu'}
+              onChange={this.handleChange}
+              refs={this.phoneNumberInput}
+              value={this.state.phoneNumber}
+              />
+            </div>
+            <div class="row row justify-content-end">
               <Button type="accept" label={'Zapisz'} btnType={'submit'} onClick={this.onFormSubmit}/>
             </div>
-          </CardComponent>
-        </main>
-      </section>
+        </CardComponent>
+      </MainWrapper>
     )
   }
 }

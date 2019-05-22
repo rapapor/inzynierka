@@ -1,26 +1,29 @@
 import React from 'react'
-import {  NavLink } from "react-router-dom";
 import './style.sass'
-
-import houseIcon from './../../assets/images/ico-btn/ikony_all-02.png'
-import tenant from './../../assets/images/ico-btn/ikony_all-18.png'
-import invoice from './../../assets/images/ico-btn/ikony_all-15.png'
-
-import options from './../../assets/images/ico-btn/ikony_all-03.png'
-
 import logo from './../../assets/images/logos/logo-01.png'
 
 import MenuButton from './../../components/menuButton'
 
 const Menu = () => {
   return (
-    <section className='menu-container'>
-      <NavLink to='/logout/'><div className='logo-container'><img src={logo} alt='logo'/></div></NavLink>
-      <NavLink activeClassName='border-active' to='/estate/'><MenuButton icon={houseIcon} label={'Twoje nieruchomości'} /><div className="border-half"></div></NavLink>
-      <NavLink activeClassName='border-active' to='/tenant/'><MenuButton icon={tenant} label={'Najemcy'} /><div className="border-half"></div></NavLink>
-      <NavLink activeClassName='border-active' to='/invoices/'><MenuButton icon={invoice} label={'Faktury'} /><div className="border-half"></div></NavLink>
-      <NavLink activeClassName='border-active' to='/logout/'><MenuButton icon={options} label={'Wyloguj'} /><div className="border-half"></div></NavLink>
-    </section>
+    <div className='sidebar' data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
+      <div className="logo">
+        <a href="" className="simple-text logo-normal">
+          <img src={logo} alt='logo' className="img-fluid" style={{width:'70%'}}/>
+        </a>
+      </div>
+      <div className="sidebar-wrapper">
+        <ul className="nav">
+          {/* ikony dostepne na https://materializecss.com/icons.html */}
+          <MenuButton href={'/dashboard/'} label={'Dashboard'} icon={'dashboard'}/>
+          <MenuButton href={'/estate/'} label={'Twoje nieruchomości'} icon={'home'}/>
+          <MenuButton href={'/tenant/'} label={'Najemcy'} icon={'people_outline'}/>
+          <MenuButton href={'/invoices/'} label={'Faktury'} icon={'content_paste'}/>
+          <MenuButton href={'/logout/'} label={'Wyloguj'} icon={'remove_circle_outline'}/>
+          <MenuButton href={'/dashboard/'} label={'Pobierz aplikację'} icon={'phone_android'} aditionalClassName={'active-pro'}/>
+        </ul>
+      </div>
+    </div>
   )
 }
 export default Menu
