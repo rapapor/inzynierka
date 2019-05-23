@@ -136,7 +136,7 @@ class Tenant extends Component {
         <td>{tenant.email}</td>
         <td>{tenant.idNumber}</td>
         <td>{tenant.phoneNumber}</td>
-        <td><button onClick={() => this.deleteTenant(tenant.id)} className="btn btn-danger btn-link btn-sm"><i class="material-icons" style={{top: '8px'}}>close</i></button></td>
+        <td><button onClick={() => this.deleteTenant(tenant.id)} className="btn btn-danger btn-link btn-sm"><i className="material-icons" style={{top: '8px'}}>close</i></button></td>
       </tr>
     )
   }
@@ -180,7 +180,7 @@ class Tenant extends Component {
               {myFlats.map((flat, index) => flat.propertyStatus !== "RENTED" && <option key={flat.id} value={flat.id}>{flat.city} {flat.street}</option>)}
             </select>
 
-            <div class="row">
+            <div className="row">
               <Input
               placeholder={'Imię'}
               onChange={this.handleChange}
@@ -195,7 +195,7 @@ class Tenant extends Component {
               />
             </div>
 
-            <div class="row">
+            <div className="row">
               <Input 
               placeholder={'Pesel'}
               onChange={this.handleChange}
@@ -210,7 +210,7 @@ class Tenant extends Component {
               />
             </div>
 
-            <div class="row">
+            <div className="row">
               <Input 
               placeholder={'Adres email'}
               onChange={this.handleChange}
@@ -224,7 +224,7 @@ class Tenant extends Component {
               value={this.state.phoneNumber}
               />
             </div>
-            <div class="row row justify-content-end">
+            <div className="row row justify-content-end">
               <Button type="accept" label={'Zapisz'} btnType={'submit'} onClick={this.onFormSubmit}/>
             </div>
         </CardComponent>

@@ -6,7 +6,6 @@ import { Redirect } from "react-router-dom"
 import Input from './../../components/input'
 import Button from './../../components/button'
 
-
 class LoginForm extends Component {
   constructor(props) {
     super(props)

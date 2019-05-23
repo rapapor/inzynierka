@@ -5,7 +5,7 @@ const SmallCardProperty = ({ onClickBills, onChangeStatus, id, onDelete, surface
 return (
   <div className="card small-card col-md-4">
     <div className="card-image waves-effect waves-block waves-light">
-      <img className="activator" src={img} />
+      <img className="activator" src={img} alt=""/>
     </div>
     <div className="card-content">
       <span className="card-title activator grey-text text-darken-4">{street}<i className="material-icons right">more_vert</i></span>
@@ -21,19 +21,19 @@ return (
       <span className='surface'>{surface}</span>
       <div>
         <div className="fixed-action-btn click-to-toggle direction-top direction-left active">
-          <a className="btn-floating btn-large red">
+          <span className="btn-floating btn-large red">
             <i className="material-icons">mode_edit</i>
-          </a>
+          </span>
           <ul>
             <li>
-              <a className="btn-floating green" onClick={() => onClickBills(id)}>
+              <span className="btn-floating green" onClick={() => onClickBills(id)}>
                 <i className="material-icons">attach_money</i>
-              </a>
+              </span>
             </li>
             <li>
-              <a className="btn-floating red darken-1" onClick={() => onDelete(id)}>
+              <span className="btn-floating red darken-1" onClick={() => onDelete(id)}>
                 <i className="material-icons">delete</i>
-              </a>
+              </span>
             </li>
           </ul>
         </div>

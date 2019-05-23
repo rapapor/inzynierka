@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect, Link } from "react-router-dom"
 import api from './../../api'
-import plusIcon from './../../assets/images/card-property-items/plusik.png'
-import Button from './../../components/button'
 import SmallCardProperty from './../../components/smallCardProperty'
 import swal from '@sweetalert/with-react'
 import MoodButton from './../../components/moodbuttons'
@@ -17,7 +15,6 @@ class Property extends Component {
     this.state = {
       myFlats: [],
       propertyId: false,
-      alertsArr: []
     }
     this.adresRef = React.createRef();
   }
@@ -31,11 +28,6 @@ class Property extends Component {
     api.getFlatsList(token).then(res => {
       this.setState({
         myFlats: res,
-        alertsArr: res.map(
-          flat => flat.alerts.map(
-            a => { return {...a, flat_id: flat.id, flat_street: flat.street} }
-          )
-        ).flat()
       })      
     }).catch(error => {
       console.log(error)
@@ -149,90 +141,9 @@ class Property extends Component {
       )
     })
   }
-
-  deleteAlert = (alertID, propertyID) => {
-    swal({
-      title: "Usuwasz / rozwiązujesz ten alert",
-      text: "Jeżeli usuniesz ten alert tzn że został rozwiązany i już go nie zobaczysz",
-      icon: "warning",
-      buttons: {
-        cancel: "Anuluj",
-        accept: {
-          text: "Chcę usunąc alert",
-          value: "accept"
-        },
-      },
-    }).then((value) => {
-      switch (value) {
-        case "accept":
-        api.resolveAlert(propertyID,alertID).then(res => {
-          if (res && res.status === 200) {
-            swal({
-              title: "Brawo!!",
-              text: "Rozwiązałeś kolejny problem",
-              icon: "success",
-              button: "OK",
-            }).then( () => {
-              this.loadFlats()
-            })
-          } else {
-            swal({
-              title: "Coś poszło nie tak",
-              text: "Bardzo przepraszamy niestety nie udało się usunąć alertu, spróbuj ponownie",
-              icon: "warning",
-              buttons: true,
-              dangerMode: true,
-            }).then( () => {
-              this.loadFlats()
-            })
-          }
-        })
-        break;
-        default:
-        swal("Przed usunięciem alertów upewnij się czy zostały rozwiązane")
-      }
-    })
     
-  }
-  
-  generateAlert = (alert) => {
-    let alertType = 'alert-primary'
-    switch (alert.alertType) {
-      case "PAYMENT":
-        alertType = 'alert-warning'
-        break;
-      case "DAMAGES":
-        alertType = 'alert-danger'
-        break;
-      case "COMPLAINT":
-        alertType = 'alert-dark'
-        break;
-      case "EQUIPMENT":
-        alertType = 'alert-primary'
-        break;
-      default:
-        alertType = 'alert-secondary'
-        break;
-    }
-    if (alert.visible) {
-      return  <a class="dropdown-item">
-                <div className={"alert alert-with-icon " + alertType} data-notify="container">
-                  <i class="material-icons" data-notify="icon">add_alert</i>
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close" onClick={() => this.deleteAlert(alert.id, alert.flat_id)}>
-                    <i class="material-icons">Usuń</i>
-                  </button>
-                  <span data-notify="message">W dniu {alert.createdDate} z mieszkania {alert.flat_street}. Przyszło zgłoszenie o trści: {alert.description}</span>
-                </div>
-              </a>
-    } else {
-      return false
-    }
-    
-  }
-
   render(){
-    const { myFlats, propertyId, alertsArr } = this.state
-    console.log(alertsArr)
+    const { myFlats, propertyId } = this.state
     if(!localStorage.getItem('token')){
       return (
         <Redirect to="/login/" />
@@ -244,7 +155,7 @@ class Property extends Component {
       <MainWrapper>
         <CardComponent label="Nieruchomości" description="lorem ipsum" >
           <div className="row justify-content-end">
-            <Link to='/add-property/' className="btn-floating btn-large waves-effect waves-light blue"><i class="material-icons">add</i></Link>
+            <Link to='/add-property/' className="btn-floating btn-large waves-effect waves-light blue"><i className="material-icons">add</i></Link>
           </div>
           <div className="row">
             {myFlats.map(flats => this.generateFlatsCard(flats))}

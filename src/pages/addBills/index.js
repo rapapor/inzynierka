@@ -112,7 +112,7 @@ class AddBills extends Component {
       console.log(error)
     })
     api.getAllBills(id).then(res => {
-      if (res.length > 1) {
+      if (res.length >= 1) {
         this.setState({myBills: res})
       }
     }).catch(error => {
@@ -270,7 +270,7 @@ class AddBills extends Component {
 
   genImageSingleProperty = (image, index) => {
     return (
-      <div key={index} className="col-sm-3 col-12 thumbnail-container-detail">
+      <div key={index} className="col-sm-3 col-xs-12 thumbnail-container-detail">
         <img className="single-thumb" width="100%" src={image} alt="thumbnail"/>
       </div>
     )
@@ -403,7 +403,7 @@ class AddBills extends Component {
         <Menu />
         <MainWrapper>
           <CardComponent label={`Mieszkanie: ${myFlat.city} ${myFlat.street}`} description="lorem ipsum">
-            <div className="head-property-detail col-xs-12 col-sm-12">
+            <div className="d-sm-flex head-property-detail col-xs-12 col-sm-12">
               {myFlat.imagesUrls && myFlat.imagesUrls.map((image, index) => this.genImageSingleProperty(image, index))}
             </div>
             <div className="d-flex mt-5">
@@ -424,8 +424,8 @@ class AddBills extends Component {
               </div>
               
             </div>
-            <div className="additional-info-list">
-              {myFlat.additionalInformation && myFlat.additionalInformation.map((item, index) => <div className="add-info-item" key={index}>{item}</div>)}
+            <div className="additional-info-list d-flex justify-content-space-between align-items-center">
+              {myFlat.additionalInformation && myFlat.additionalInformation.map((item, index) => <div className=" m-3" key={index}>{item}</div>)}
             </div>
           </CardComponent>
         

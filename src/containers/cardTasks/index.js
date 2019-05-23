@@ -42,7 +42,7 @@ const cardStats = ({ icon, type,  name, value, description }) => {
                     <td>
                       <div className="form-check">
                         <label className="form-check-label">
-                          <input className="form-check-input" type="checkbox" value="" checked />
+                          <input className="form-check-input" type="checkbox" value=""  />
                           <span className="form-check-sign">
                             <span className="check"></span>
                           </span>
@@ -106,7 +106,7 @@ const cardStats = ({ icon, type,  name, value, description }) => {
                     <td>
                       <div className="form-check">
                         <label className="form-check-label">
-                          <input className="form-check-input" type="checkbox" value="" checked />
+                          <input className="form-check-input" type="checkbox" value=""  />
                           <span className="form-check-sign">
                             <span className="check"></span>
                           </span>
@@ -133,7 +133,7 @@ const cardStats = ({ icon, type,  name, value, description }) => {
                     <td>
                       <div className="form-check">
                         <label className="form-check-label">
-                          <input className="form-check-input" type="checkbox" value="" checked />
+                          <input className="form-check-input" type="checkbox" value=""  />
                           <span className="form-check-sign">
                             <span className="check"></span>
                           </span>
@@ -203,7 +203,7 @@ const cardStats = ({ icon, type,  name, value, description }) => {
                     <td>
                       <div className="form-check">
                         <label className="form-check-label">
-                          <input className="form-check-input" type="checkbox" value="" checked />
+                          <input className="form-check-input" type="checkbox" value=""  />
                           <span className="form-check-sign">
                             <span className="check"></span>
                           </span>
@@ -225,7 +225,7 @@ const cardStats = ({ icon, type,  name, value, description }) => {
                     <td>
                       <div className="form-check">
                         <label className="form-check-label">
-                          <input className="form-check-input" type="checkbox" value="" checked />
+                          <input className="form-check-input" type="checkbox" value=""  />
                           <span className="form-check-sign">
                             <span className="check"></span>
                           </span>
