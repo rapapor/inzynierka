@@ -28,6 +28,9 @@ class TopNav extends Component {
               if (a.visible) {
                 return { ...a, flat_id: flat.id, flat_street: flat.street }
               }
+              else {
+                return false
+              }
             }
           )
         ).flat()
@@ -38,48 +41,47 @@ class TopNav extends Component {
   }
 
   deleteAlert = (alertID, propertyID) => {
-    console.log(alert)
-    // swal({
-    //   title: "Usuwasz / rozwiązujesz ten alert",
-    //   text: "Jeżeli usuniesz ten alert tzn że został rozwiązany i już go nie zobaczysz",
-    //   icon: "warning",
-    //   buttons: {
-    //     cancel: "Anuluj",
-    //     accept: {
-    //       text: "Chcę usunąc alert",
-    //       value: "accept"
-    //     },
-    //   },
-    // }).then((value) => {
-    //   switch (value) {
-    //     case "accept":
-    //       api.resolveAlert(propertyID, alertID).then(res => {
-    //         if (res && res.status === 200) {
-    //           swal({
-    //             title: "Brawo!!",
-    //             text: "Rozwiązałeś kolejny problem",
-    //             icon: "success",
-    //             button: "OK",
-    //           }).then(() => {
-    //             this.loadAlert()
-    //           })
-    //         } else {
-    //           swal({
-    //             title: "Coś poszło nie tak",
-    //             text: "Bardzo przepraszamy niestety nie udało się usunąć alertu, spróbuj ponownie",
-    //             icon: "warning",
-    //             buttons: true,
-    //             dangerMode: true,
-    //           }).then(() => {
-    //             this.loadAlert()
-    //           })
-    //         }
-    //       })
-    //       break;
-    //     default:
-    //       swal("Przed usunięciem alertów upewnij się czy zostały rozwiązane")
-    //   }
-    // })
+    swal({
+      title: "Usuwasz / rozwiązujesz ten alert",
+      text: "Jeżeli usuniesz ten alert tzn że został rozwiązany i już go nie zobaczysz",
+      icon: "warning",
+      buttons: {
+        cancel: "Anuluj",
+        accept: {
+          text: "Chcę usunąc alert",
+          value: "accept"
+        },
+      },
+    }).then((value) => {
+      switch (value) {
+        case "accept":
+          api.resolveAlert(propertyID, alertID).then(res => {
+            if (res && res.status === 200) {
+              swal({
+                title: "Brawo!!",
+                text: "Rozwiązałeś kolejny problem",
+                icon: "success",
+                button: "OK",
+              }).then(() => {
+                this.loadAlert()
+              })
+            } else {
+              swal({
+                title: "Coś poszło nie tak",
+                text: "Bardzo przepraszamy niestety nie udało się usunąć alertu, spróbuj ponownie",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+              }).then(() => {
+                this.loadAlert()
+              })
+            }
+          })
+          break;
+        default:
+          swal("Przed usunięciem alertów upewnij się czy zostały rozwiązane")
+      }
+    })
 
   }
 
@@ -119,7 +121,6 @@ class TopNav extends Component {
   }
   render() {
     const { alertsArr } = this.state
-    console.log(alertsArr)
     return (
       <nav className="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div className="container-fluid">
