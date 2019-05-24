@@ -175,170 +175,165 @@ class AddProperty extends Component {
     return (
       <div className="addProperty-container">
         <div className="addProperty-form">
-        <div className="row col-12 flex-0">
-          <CardComponent label='Informacje podstawowe' >
-            <div className="base-info-container">
-              <div className="left-side-form-add-property">
-                <Input
-                  placeholder={'Tytuł'}
-                  onChange={this.handleChange}
-                  refs={this.titleInput}
-                  value={this.state.property.title}
-                  // error={this.state.error}
-                />
-                <Input
-                  placeholder={'Cena'}
-                  onChange={this.handleChange}
-                  refs={this.priceInput}
-                  value={this.state.property.price}
-                  // error={this.state.error}
-                />
-                <Input
-                  placeholder={'Kaucja'}
-                  onChange={this.handleChange}
-                  refs={this.bailInput}
-                  value={this.state.property.bail}
-                  // error={this.state.error}
-                />
-                <Input
-                  placeholder={'Powierzchnia'}
-                  onChange={this.handleChange}
-                  refs={this.surfaceInput}
-                  value={this.state.property.surface}
-                  // error={this.state.error}
-                />
-                <Input
-                  placeholder={'Liczba pokoi'}
-                  onChange={this.handleChange}
-                  refs={this.roomsInput}
-                  value={this.state.property.rooms}
-                  // error={this.state.error}
-                />
-              </div>
-              <div className="right-side-form-add-property">
-                <Textarea
-                  rows={"10"}
-                  cols={"100"}
-                  placeholder={'Opis'}
-                  onChange={this.handleChange}
-                  refs={this.descriptionInput}
-                  value={this.state.property.description}
-                  // error={this.state.error}
-                />
-                <input type="file" name="img" onChange={this.onChangeFileInput} />
-                <input type="file" name="img" onChange={this.onChangeFileInput} />
-                <input type="file" name="img" onChange={this.onChangeFileInput} />
-                <div className="preview-container">
-                  {this.state.images.map((item, index) => <div key={item} className="single-preview-container"><img className="img-preview" alt="preview" src={item} /><span onClick={() => this.deleteItemFromImages(index)} className="delete-btn">&#10008;</span></div> )}
+          <div className="row col-12 flex-0">
+            <CardComponent label='Informacje podstawowe' >
+              <div className="base-info-container row col-12">
+                <div className="row col-6">
+                  <Input
+                    placeholder={'Tytuł'}
+                    onChange={this.handleChange}
+                    refs={this.titleInput}
+                    value={this.state.property.title}
+                    // error={this.state.error}
+                  />
+                  <Input
+                    placeholder={'Cena'}
+                    onChange={this.handleChange}
+                    refs={this.priceInput}
+                    value={this.state.property.price}
+                    // error={this.state.error}
+                  />
+                  <Input
+                    placeholder={'Kaucja'}
+                    onChange={this.handleChange}
+                    refs={this.bailInput}
+                    value={this.state.property.bail}
+                    // error={this.state.error}
+                  />
+                  <Input
+                    placeholder={'Powierzchnia'}
+                    onChange={this.handleChange}
+                    refs={this.surfaceInput}
+                    value={this.state.property.surface}
+                    // error={this.state.error}
+                  />
+                  <Input
+                    placeholder={'Liczba pokoi'}
+                    onChange={this.handleChange}
+                    refs={this.roomsInput}
+                    value={this.state.property.rooms}
+                    // error={this.state.error}
+                  />
+                </div>
+                <div className="row col-6">
+                  <Textarea
+                    rows={"10"}
+                    cols={"100"}
+                    placeholder={'Opis'}
+                    onChange={this.handleChange}
+                    refs={this.descriptionInput}
+                    value={this.state.property.description}
+                    // error={this.state.error}
+                  />
+                  
+                </div>
+                <div className="row col-12 d-flex-inline align-items-baseline">
+                  <input className="col-4" type="file" name="img" onChange={this.onChangeFileInput} />
+                  <input className="col-4" type="file" name="img" onChange={this.onChangeFileInput} />
+                  <input className="col-4" type="file" name="img" onChange={this.onChangeFileInput} />
+                </div>
+                <div className="row col-12 preview-container">
+                  {this.state.images.map((item, index) => <div key={item} className="single-preview-container col-3"><img className="img-preview" alt="preview" src={item} /><span onClick={() => this.deleteItemFromImages(index)} className="delete-btn">&#10008;</span></div> )}
                 </div>
               </div>
-            </div>
-          </CardComponent>
+            </CardComponent>
           </div>
           <div className="row col-12 flex-0">
-            <div className="specialize-container col-12">
-              <div className="localization-container">
-                <CardComponent label="Lokalizacja">
-                  <div className="form-container">
+              <CardComponent label="Lokalizacja">
+                <div className="form-container">
+                  <Input
+                    placeholder={'Ulica'}
+                    onChange={this.handleChange}
+                    refs={this.streetInput}
+                    value={this.state.property.street}
+                  // error={this.state.error}
+                  />
+                  <Input
+                    placeholder={'Numer domu'}
+                    onChange={this.handleChange}
+                    refs={this.houseNumberInput}
+                    value={this.state.property.houseNumber}
+                  // error={this.state.error}
+                  />
+                  <Input
+                    placeholder={'Miasto'}
+                    onChange={this.handleChange}
+                    refs={this.cityInput}
+                    value={this.state.property.city}
+                  // error={this.state.error}
+                  />
+                  <Input
+                    placeholder={'Kod pocztowy'}
+                    onChange={this.handleChange}
+                    refs={this.postCodeInput}
+                    value={this.state.property.postCode}
+                  // error={this.state.error}
+                  />
+                </div>
+              </CardComponent>
+            </div>
+            <div className="row col-12 flex-0">
+              <CardComponent label="Informacje szczegółowe">
+                <div className="form-container">
+
                     <Input
-                      placeholder={'Ulica'}
+                      placeholder={'Rodzaj zabudowy'}
                       onChange={this.handleChange}
-                      refs={this.streetInput}
-                      value={this.state.property.street}
+                      refs={this.buildingTypeInput}
+                      value={this.state.property.buildingType}
                     // error={this.state.error}
                     />
                     <Input
-                      placeholder={'Numer domu'}
+                      placeholder={'Materiały budynku'}
                       onChange={this.handleChange}
-                      refs={this.houseNumberInput}
-                      value={this.state.property.houseNumber}
+                      refs={this.materialTypeInput}
+                      value={this.state.property.materialType}
                     // error={this.state.error}
                     />
                     <Input
-                      placeholder={'Miasto'}
+                      placeholder={'Rok budowy'}
                       onChange={this.handleChange}
-                      refs={this.cityInput}
-                      value={this.state.property.city}
+                      refs={this.constructionYearInput}
+                      value={this.state.property.constructionYear}
                     // error={this.state.error}
                     />
                     <Input
-                      placeholder={'Kod pocztowy'}
+                      placeholder={'Okna'}
                       onChange={this.handleChange}
-                      refs={this.postCodeInput}
-                      value={this.state.property.postCode}
+                      refs={this.windowsTypeInput}
+                      value={this.state.property.windowsType}
+                    // error={this.state.error}
+                    />
+                    <Input
+                      placeholder={'Piętro'}
+                      onChange={this.handleChange}
+                      refs={this.floorInput}
+                      value={this.state.property.floor}
+                    // error={this.state.error}
+                    />
+                    <Input
+                      placeholder={'Ilość pięter w budynku'}
+                      onChange={this.handleChange}
+                      refs={this.numberOfFloors}
+                      value={this.state.property.numberFloors}
+                    // error={this.state.error}
+                    />
+                    <Input
+                      placeholder={'Ogrzewanie'}
+                      onChange={this.handleChange}
+                      refs={this.heatingInput}
+                      value={this.state.property.heating}
+                    // error={this.state.error}
+                    />
+                    <Input
+                      placeholder={'Balkon'}
+                      onChange={this.handleChange}
+                      refs={this.balconyInput}
+                      value={this.state.property.balcony}
                     // error={this.state.error}
                     />
                   </div>
-                  </CardComponent>
-                </div>
-            
-                <div className="otherInfo-container">
-                  <CardComponent label="Informacje szczegółowe">
-                    <div className="form-container">
-                      <div className="col-6">
-                        <Input
-                          placeholder={'Rodzaj zabudowy'}
-                          onChange={this.handleChange}
-                          refs={this.buildingTypeInput}
-                          value={this.state.property.buildingType}
-                        // error={this.state.error}
-                        />
-                        <Input
-                          placeholder={'Materiały budynku'}
-                          onChange={this.handleChange}
-                          refs={this.materialTypeInput}
-                          value={this.state.property.materialType}
-                        // error={this.state.error}
-                        />
-                        <Input
-                          placeholder={'Rok budowy'}
-                          onChange={this.handleChange}
-                          refs={this.constructionYearInput}
-                          value={this.state.property.constructionYear}
-                        // error={this.state.error}
-                        />
-                        <Input
-                          placeholder={'Okna'}
-                          onChange={this.handleChange}
-                          refs={this.windowsTypeInput}
-                          value={this.state.property.windowsType}
-                        // error={this.state.error}
-                        />
-                      </div>
-                      <div className="col-6">
-                        <Input
-                          placeholder={'Piętro'}
-                          onChange={this.handleChange}
-                          refs={this.floorInput}
-                          value={this.state.property.floor}
-                        // error={this.state.error}
-                        />
-                        <Input
-                          placeholder={'Ilość pięter w budynku'}
-                          onChange={this.handleChange}
-                          refs={this.numberOfFloors}
-                          value={this.state.property.numberFloors}
-                        // error={this.state.error}
-                        />
-                        <Input
-                          placeholder={'Ogrzewanie'}
-                          onChange={this.handleChange}
-                          refs={this.heatingInput}
-                          value={this.state.property.heating}
-                        // error={this.state.error}
-                        />
-                        <Input
-                          placeholder={'Balkon'}
-                          onChange={this.handleChange}
-                          refs={this.balconyInput}
-                          value={this.state.property.balcony}
-                        // error={this.state.error}
-                        />
-                      </div>
-                    </div>
-                  </CardComponent>
-                </div>
-              </div>
+              </CardComponent>
             </div>
           <div className="row col-12 flex-0">
             <div className="additional-special-info-container col-12">

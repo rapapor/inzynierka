@@ -3,6 +3,7 @@ import { Redirect, Link } from "react-router-dom"
 import api from './../../api'
 import plusIcon from './../../assets/images/card-property-items/plusik.png'
 import Button from './../../components/button'
+import CardComponent from './../../components/cardComponent'
 import SmallCardProperty from './../../components/smallCardProperty'
 import swal from '@sweetalert/with-react'
 import MoodButton from './../../components/moodbuttons'
@@ -236,16 +237,17 @@ class Property extends Component {
     }
     return (
       <section className="section-property">
-      <div className="alert-section">
+      {/* <div className="alert-section">
         {alertsArr.map(alert => this.generateAlert(alert))}
-      </div>
-        <header className='button-property-container'>
-          <Link to='/add-property/'><Button type={'accept'} icon={plusIcon} label={'Dodaj'} /></Link>
-        </header>
-        <main className='main-container-property'>
-          {myFlats.map(flats => this.generateFlatsCard(flats))}
-        </main>
-        <footer></footer>
+      </div> */}
+        <CardComponent label={'Moje nieruchomości'}>
+          <header className='button-property-container'>
+            <Link to='/add-property/'><Button type={'accept'} icon={plusIcon} label={'Dodaj'} /></Link>
+          </header>
+          <main className='main-container-property'>
+            {myFlats.map(flats => this.generateFlatsCard(flats))}
+          </main>
+        </CardComponent>
       </section>
     )
   }

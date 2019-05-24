@@ -1,19 +1,43 @@
 @import '../../utils/global.sass'
 
 .card-container
+  border: 0
+  margin-bottom: 30px
   margin-top: 30px
+  border-radius: 6px
+  color: #333
+  background: #fff
+  width: 100%
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12)
   position: relative
   display: flex
-  width: 100%
+  flex-direction: column
+  min-width: 0
+  word-wrap: break-word
+  background-color: #fff
+  background-clip: border-box
+  border: 1px solid #eee
+  border-radius: .25rem
   .section-label
-    position: absolute
-    background: $statusBlue
-    padding: 5px 40px 5px 40px
-    min-width: 200px
-    border-radius: 0px 20px 20px 0px
-    top: 20px
-    color: #fff
-    text-align: center
+    border-radius: 3px
+    margin-top: -20px
+    padding: 15px
+    box-shadow: 0 4px 20px 0 rgba(0,0,0,.14),0 7px 10px -5px rgba(156,39,176,.4)
+    background: linear-gradient(60deg,#1d76b4,#5d76b4)
+    .card-title
+      font-size: 24px
+      font-weight: 300
+      color: #ffffff
+    .card-category
+      color: #fff
+
   .card-content
-    width: 100%
-    margin-top: 80px
+    padding: .9375rem 20px
+    position: relative
+    flex: 1 1 auto
+    margin: 30px 0px 30px 0px
+    table
+      width: 100%
+      max-width: 100%
+      margin-bottom: 1rem
+      background-color: transparent

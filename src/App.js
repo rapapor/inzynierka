@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom"
 
+import ContentWrapper from './components/contentWrapper'
 
 import LoginPages from './pages/login'
 import Property from './pages/property'
@@ -40,17 +41,54 @@ class App extends Component {
       )
     }
     return (
-      <div className='container'>
+      <div className='container-fluid'>
         <Router>
           <Switch>
             <Route exact path="/" render={() => <Redirect to="/login" />} />
-            <Route path="/login" render={() => <LoginPages token={this.state.token} setToken={this.setToken}/>} />          
-            <Route path="/estate/" render={() => <React.Fragment> <Menu /> <Property globalState={this.state}/></React.Fragment>} />
-            <Route path="/tenant/" render={() => <React.Fragment> <Menu /> <Tenant globalState={this.state}/></React.Fragment>} />
-            <Route path="/invoices/" render={() => <React.Fragment> <Menu /> <Invoices globalState={this.state}/></React.Fragment>} />
+            <Route path="/login" render={
+              () => <LoginPages token={this.state.token} setToken={this.setToken}/>}
+            />          
+            <Route path="/estate/" render={
+              () => <React.Fragment>
+                      <Menu />
+                      <ContentWrapper>
+                        <Property globalState={this.state}/>
+                      </ContentWrapper>
+                    </React.Fragment>}
+            />
+            <Route path="/tenant/" render={
+              () => <React.Fragment>
+                      <Menu />
+                      <ContentWrapper>
+                        <Tenant globalState={this.state}/>
+                      </ContentWrapper>
+                    </React.Fragment>}
+            />
+            <Route path="/invoices/" render={
+              () => <React.Fragment>
+                      <Menu />
+                      <ContentWrapper>
+                        <Invoices globalState={this.state}/>
+                      </ContentWrapper>
+                    </React.Fragment>}
+            />
+            <Route path="/add-property/" render={
+              () => <React.Fragment>
+                      <Menu />
+                      <ContentWrapper>
+                        <AddProperty globalState={this.state}/>
+                      </ContentWrapper>
+                    </React.Fragment>}
+            />
+            <Route path="/logout/" render={
+              () => <React.Fragment>
+                      <Menu />
+                      <ContentWrapper>
+                        <Logout setToken={this.setToken}/>
+                      </ContentWrapper>
+                    </React.Fragment>}
+            />
             <Route path="/add-bills/" component={AddBills} />
-            <Route path="/add-property/" render={() => <React.Fragment> <Menu /> <AddProperty globalState={this.state}/></React.Fragment>} />
-            <Route path="/logout/" render={() => <React.Fragment> <Menu /> <Logout setToken={this.setToken}/></React.Fragment>} />
           </Switch>
         </Router>
       </div>
