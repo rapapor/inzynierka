@@ -22,9 +22,9 @@ class Invoices extends Component {
     }
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.loadFlats()
-   }
+  }
 
   deleteInvoice = (id) => {
     console.log(id)
@@ -37,10 +37,10 @@ class Invoices extends Component {
         myFlats: res,
         myInvoices: res.map(
           flat => flat.invoices.map(
-            a => { return {...a, flat_id: flat.id, property_adress: `${flat.city} ${flat.street}`} }
+            a => { return { ...a, flat_id: flat.id, property_adress: `${flat.city} ${flat.street}` } }
           )
         ).flat()
-      })      
+      })
     }).catch(error => {
       console.log(error)
     })
@@ -52,12 +52,12 @@ class Invoices extends Component {
       invoiceType: statusInvoice === 'PAID' ? 'NOT_PAID' : 'PAID'
     }
     api.updateInvoices(flat_id, id, myInvoice).then(res => {
-      if(res && res.status === 200 ) {
+      if (res && res.status === 200) {
         swal({
           title: "Zmieniłeś status Faktury",
           icon: "success",
           button: "OK",
-        }).then( () => {
+        }).then(() => {
           this.loadFlats()
         })
       }
@@ -72,38 +72,37 @@ class Invoices extends Component {
         <td><a href={invoice.invoiceUrl} download rel="noopener noreferrer" target="_blank">Pobierz </a></td>
         <td className={`status-invoice ${invoice.invoiceType}`}>{invoice.invoiceType === "PAID" ? 'opłacona' : 'nieopłacona'}</td>
         <td>
-          <span 
+          <span
             onClick={() => this.changeStatusInvoice(invoice.id, invoice.flat_id, invoice.invoiceType)}
             className={`change-status-btn`}>
-            <img src={changeArrow}  alt={`Zmień status na ${invoice.invoiceType === "NOT_PAID" ? 'opłacona' : 'nieopłacona'}`}/>
-            
+            <img src={changeArrow} alt={`Zmień status na ${invoice.invoiceType === "NOT_PAID" ? 'opłacona' : 'nieopłacona'}`} />
+
           </span>
         </td>
       </tr>
     )
   }
 
-  render(){
+  render() {
     const { myInvoices } = this.state
     return (
-      <section>
-        <CardComponent label={"Wystawione faktury"}>
-          <table className="table table-striped">
-              <thead>
-                <tr>
-                  <th>Mieszkanie</th>
-                  <th>Data wystawienia</th>
-                  <th>Link do faktury</th>
-                  <th>Status</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {myInvoices.map((invoice, index) => this.generateInvoiceList(invoice, index))}
-              </tbody>
-            </table>
-        </CardComponent>
-      </section>
+
+      <CardComponent label={"Wystawione faktury"}>
+        <table className="table table-striped">
+          <thead className="text-primary">
+            <tr>
+              <th>Mieszkanie</th>
+              <th>Data wystawienia</th>
+              <th>Link do faktury</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {myInvoices.map((invoice, index) => this.generateInvoiceList(invoice, index))}
+          </tbody>
+        </table>
+      </CardComponent>
     )
   }
 }

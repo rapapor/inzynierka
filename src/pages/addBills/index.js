@@ -5,6 +5,7 @@ import Button from './../../components/button'
 import DatePicker from "react-datepicker"
 import * as moment from 'moment';
 import api from './../../api'
+import ContentWrapper from './../../components/contentWrapper'
 import swal from '@sweetalert/with-react'
 import './style.sass'
 
@@ -193,7 +194,7 @@ class AddBills extends Component {
             <span className="genInvoice-button--delete" onClick={() => this.deleteBill(bill.id)}>Usuń</span>
             </div>
           <table key={index} className="table table-sm table-striped text-center">
-            <thead>
+            <thead  className="text-primary">
               <tr>
                 <th>Nazwa</th>
                 <th>Stan licznika</th>
@@ -396,10 +397,10 @@ class AddBills extends Component {
 
   render(){
     const { myFlat, myBills } = this.state
-    console.log(myBills)
     return (
       <React.Fragment>
       <Menu />
+      <ContentWrapper>
       <section className="col-sm-12">
         <CardComponent label={`Mieszkanie: ${myFlat.city} ${myFlat.street}`}>
           <div className="head-property-detail col-xs-12 col-sm-12">
@@ -436,7 +437,7 @@ class AddBills extends Component {
           </div>
         </div>
         <table className="table table-striped text-center">
-            <thead>
+            <thead className="text-primary">
               <tr>
                 <th>Nazwa</th>
                 <th>Stan licznika</th>
@@ -463,6 +464,7 @@ class AddBills extends Component {
       <section className="d-lg-flex flex-wrap">
         {myBills.map((bill, index) => this.generateMyBillsTable(bill, index))}
       </section>
+      </ContentWrapper>
       </ React.Fragment>
       
     )

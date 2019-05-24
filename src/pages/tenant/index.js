@@ -7,7 +7,7 @@ import swal from '@sweetalert/with-react'
 
 import CardComponent from './../../components/cardComponent'
 import './style.sass'
- 
+
 class Tenant extends Component {
   constructor(props) {
     super(props)
@@ -26,38 +26,40 @@ class Tenant extends Component {
       phoneNumber: '',
       propertyId: '1',
       myFlats: [],
-      myTenant: []
+      myTenant: [],
+      actualPhoto: '',
+      thumbnailPath: false
     }
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.loadFlats()
     this.loadTenant()
-   }
+  }
 
 
   loadFlats = () => {
     var token = localStorage.getItem('token')
     api.getFlatsList(token).then(res => {
-      this.setState({myFlats: res})
+      this.setState({ myFlats: res, thumbnailPath: res[0].imagesUrls[0] })
     }).catch(error => {
       console.log(error)
     })
   }
 
   loadTenant = () => {
-    this.setState({ 
-                  name: '',
-                  lastName: '',
-                  pesel: '',
-                  idNumber: '',
-                  email: '',
-                  phoneNumber: '',
-                  propertyId: '1',
-                })
+    this.setState({
+      name: '',
+      lastName: '',
+      pesel: '',
+      idNumber: '',
+      email: '',
+      phoneNumber: '',
+      propertyId: '1',
+    })
     var token = localStorage.getItem('token')
     api.getTenantList(token).then(res => {
-      this.setState({myTenant: res})
+      this.setState({ myTenant: res })
     }).catch(error => {
       console.log(error)
     })
@@ -84,7 +86,7 @@ class Tenant extends Component {
   }
 
   onFormSubmit = () => {
-    const { name, lastName, pesel, idNumber, email, phoneNumber, propertyId} = this.state
+    const { name, lastName, pesel, idNumber, email, phoneNumber, propertyId } = this.state
     var token = localStorage.getItem('token')
     const tenant = {
       firstName: name,
@@ -98,7 +100,7 @@ class Tenant extends Component {
       }
     }
     api.createTenant(tenant, token).then(res => {
-      if ( res && res.status === 200) {
+      if (res && res.status === 200) {
         swal({
           title: "Dodałeś Nowego najemce!",
           text: "Dziękujemy za zaufanie!",
@@ -121,11 +123,21 @@ class Tenant extends Component {
     })
   }
 
-  handleChangeSelect = ( event ) => {
-    this.setState({ propertyId: event.target.value })
+  handleChangeSelect = (event) => {
+    const { myFlats } = this.state
+    let myThumb = ''
+    myFlats.map(function(flat){
+      if(flat.id === parseInt(event.target.value)) {
+        myThumb = flat.imagesUrls[0]
+      }
+      return true
+    })
+    this.setState({
+      propertyId: event.target.value, thumbnailPath: myThumb
+    })
   }
 
-  generateMyTenant =(tenant, index) => {
+  generateMyTenant = (tenant, index) => {
     return (
       <tr key={tenant.pesel}>
         <td>{tenant.property.city} {tenant.property.street} </td>
@@ -140,91 +152,95 @@ class Tenant extends Component {
     )
   }
 
-  render(){
-    const { myFlats, myTenant } = this.state
-    if(!localStorage.getItem('token')){
+  render() {
+    const { myFlats, myTenant, thumbnailPath } = this.state
+    if (!localStorage.getItem('token')) {
       return (
         <Redirect to="/login/" />
       )
     }
     return (
-      <section>
-        <main className="tenant-container">
-          <CardComponent label={"Twoi najemcy"}>
-            <table className="table table-striped">
-              <thead>
-                <tr>
-                  <th>Mieszkanie</th>
-                  <th>Imie</th>
-                  <th>Nazwisko</th>
-                  <th>Pesel</th>
-                  <th>Adres email</th>
-                  <th>Numer dowodu</th>
-                  <th>Telefon</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {myTenant.map(tenant => this.generateMyTenant(tenant))}
-              </tbody>
-            </table>
-
-          </CardComponent>
-          <CardComponent label={"Dodaj najemce"}>
-            <div className="add-tenant-container">
-              <div className="single-section-add-tenant">
+      <React.Fragment>
+        <CardComponent label={"Twoi najemcy"}>
+          <table className="table table-striped">
+            <thead className="text-primary">
+              <tr>
+                <th>Mieszkanie</th>
+                <th>Imie</th>
+                <th>Nazwisko</th>
+                <th>Pesel</th>
+                <th>Adres email</th>
+                <th>Numer dowodu</th>
+                <th>Telefon</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {myTenant.map(tenant => this.generateMyTenant(tenant))}
+            </tbody>
+          </table>
+        </CardComponent>
+        <CardComponent label={"Dodaj najemce"}>
+          <div className="add-tenant-container">
+            <div className="single-section-add-tenant row">
+              <div className="col-6">
                 <select
-                onChange={this.handleChangeSelect}
-                className="custom-select"
-                id="inputGroupSelect01"
-                value={this.state.propertyId}
+                  onChange={this.handleChangeSelect}
+                  className="custom-select"
+                  id="inputGroupSelect01"
+                  value={this.state.propertyId}
                 >
                   {myFlats.map((flat, index) => flat.propertyStatus !== "RENTED" && <option key={flat.id} value={flat.id}>{flat.city} {flat.street}</option>)}
                 </select>
+                {thumbnailPath && <img alt="thumbnailProperty" className="thumbnailProperty" src={thumbnailPath} />}
+              </div>
+              <div className="col-6">
                 <Input
-                placeholder={'Imię'}
-                onChange={this.handleChange}
-                refs={this.nameInput}
-                value={this.state.name}
+                  placeholder={'Imię'}
+                  onChange={this.handleChange}
+                  refs={this.nameInput}
+                  value={this.state.name}
                 />
-                <Input 
-                placeholder={'Nazwisko'}
-                onChange={this.handleChange}
-                refs={this.lastNameInput}
-                value={this.state.lastName}
+                <Input
+                  placeholder={'Nazwisko'}
+                  onChange={this.handleChange}
+                  refs={this.lastNameInput}
+                  value={this.state.lastName}
                 />
-              </div>
-              <div className="single-section-add-tenant">
-                <Input 
-                placeholder={'Pesel'}
-                onChange={this.handleChange}
-                refs={this.peselInput}
-                value={this.state.pesel}
+                <Input
+                  placeholder={'Pesel'}
+                  onChange={this.handleChange}
+                  refs={this.peselInput}
+                  value={this.state.pesel}
                 />
-                <Input 
-                placeholder={'Numer dowodu'}
-                onChange={this.handleChange}
-                refs={this.idNumberInput}
-                value={this.state.idNumber}
+              
+              
+                
+                <Input
+                  placeholder={'Numer dowodu'}
+                  onChange={this.handleChange}
+                  refs={this.idNumberInput}
+                  value={this.state.idNumber}
                 />
-                <Input 
-                placeholder={'Adres email'}
-                onChange={this.handleChange}
-                refs={this.emailInput}
-                value={this.state.email}
+                <Input
+                  placeholder={'Adres email'}
+                  onChange={this.handleChange}
+                  refs={this.emailInput}
+                  value={this.state.email}
                 />
-                <Input 
-                placeholder={'nr telefonu'}
-                onChange={this.handleChange}
-                refs={this.phoneNumberInput}
-                value={this.state.phoneNumber}
+                <Input
+                  placeholder={'nr telefonu'}
+                  onChange={this.handleChange}
+                  refs={this.phoneNumberInput}
+                  value={this.state.phoneNumber}
                 />
-              </div>
-              <Button type="accept" label={'Zapisz'} btnType={'submit'} onClick={this.onFormSubmit}/>
+             </div>
+              
             </div>
-          </CardComponent>
-        </main>
-      </section>
+            <Button type="accept" label={'Zapisz'} btnType={'submit'} onClick={this.onFormSubmit} />
+          </div>
+        </CardComponent>
+      </React.Fragment>
     )
   }
 }
