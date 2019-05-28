@@ -43,15 +43,25 @@ class Property extends Component {
 
   deleteProperty = (id) => {
     const token = localStorage.getItem('token')
-    api.deleteProperty(id, token).then(res => {
-      this.loadFlats()
+    swal({
+      title: "Czy napewno chcesz usunąć nieruchomość ?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then( (value) => {
+      if(value) {
+        api.deleteProperty(id, token).then(res => {
+          this.loadFlats()
+        })
+      }
     })
+    
   }
 
-  generateFlatsCard = (flats) => {
+  generateFlatsCard = (flat) => {
     let statusText = ''
     let status = ''
-    switch (flats.propertyStatus) {
+    switch (flat.propertyStatus) {
       case "FOR_RENT":
         statusText = 'Do wynajęcia'
         status = 'for-rent'
@@ -74,13 +84,10 @@ class Property extends Component {
         break;
     }
     return <SmallCardProperty
-      surface={flats.surface}
-      street={flats.street}
-      bail={flats.bail}
-      img={flats.imagesUrls[0]}
+      flat={flat}
+      img={flat.imagesUrls[0]}
       status={{text: statusText, color: status}}
-      key={flats.id}
-      id={flats.id}
+      key={flat.id}
       onDelete={this.deleteProperty}
       onChangeStatus={this.handleChangeStatus}
       onClickBills={this.addBills}
@@ -226,8 +233,7 @@ class Property extends Component {
   }
 
   render(){
-    const { myFlats, propertyId, alertsArr } = this.state
-    console.log(alertsArr)
+    const { myFlats, propertyId } = this.state
     if(!localStorage.getItem('token')){
       return (
         <Redirect to="/login/" />
@@ -237,9 +243,6 @@ class Property extends Component {
     }
     return (
       <section className="section-property">
-      {/* <div className="alert-section">
-        {alertsArr.map(alert => this.generateAlert(alert))}
-      </div> */}
         <CardComponent label={'Moje nieruchomości'}>
           <header className='button-property-container'>
             <Link to='/add-property/'><Button type={'accept'} icon={plusIcon} label={'Dodaj'} /></Link>

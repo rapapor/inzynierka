@@ -79,10 +79,20 @@ class Tenant extends Component {
 
   deleteTenant = (id) => {
     const token = localStorage.getItem('token')
-    api.deleteTenant(id, token).then(res => {
-      this.loadFlats()
-      this.loadTenant()
+    swal({
+      title: "Czy napewno chcesz usunąć najmece",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then( (value) => {
+      if(value) {
+        api.deleteTenant(id, token).then(res => {
+          this.loadFlats()
+          this.loadTenant()
+        })
+      }
     })
+   
   }
 
   onFormSubmit = () => {

@@ -41,12 +41,12 @@ class alertComponent extends Component {
   deleteAlert = (alertID, propertyID) => {
     swal({
       title: "Usuwasz / rozwiązujesz ten alert",
-      text: "Jeżeli usuniesz ten alert tzn że został rozwiązany i już go nie zobaczysz",
+      text: "Po usunięciu alertu nie będzie on już dla Ciebie widoczny",
       icon: "warning",
       buttons: {
         cancel: "Anuluj",
         accept: {
-          text: "Chcę usunąc alert",
+          text: "Chcę usunąć alert",
           value: "accept"
         },
       },
@@ -100,13 +100,14 @@ class alertComponent extends Component {
         alertType = 'alert-primary'
         break;
       default:
-        alertType = 'alert-secondary'
+        alertType = 'alert-primary'
         break;
     }
     if (alert.visible) {
       return <div key={alert.id} className={`alert ${alertType}`} role="alert">
-                 <p className="alert-desc">W dniu {alert.createdDate} z mieszkania {alert.flat_street}. Przyszło zgłoszenie o trści: {alert.description}</p>
-                 <span className="resolve-alert" onClick={() => this.deleteAlert(alert.id, alert.flat_id)}>Usuń</span>
+                <i className="far fa-bell ico"></i>
+                <p className="alert-desc"> W dniu {alert.createdDate} z mieszkania {alert.flat_street}. Przyszło zgłoszenie o trści: {alert.description}</p>
+                <span className="resolve-alert" onClick={() => this.deleteAlert(alert.id, alert.flat_id)}>Usuń</span>
             </div>
     } else {
       return false

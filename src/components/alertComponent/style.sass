@@ -5,25 +5,59 @@
   position: relative
   z-index: 1000
   
+  
   .alert-content
     background: #fff
     padding: 30px
-    border: 1px solid #2196f3
-    border-radius: 20px
+    border-radius: 8px
     position: absolute
     width: 70%
     top: 30px
     right: 30px
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.26) 
 
 .alert
   position: relative
+  border: 0
+  border-radius: 3px
+  position: relative
+  padding: 20px 15px
+  line-height: 20px
   .alert-desc
     margin: 0
+    padding-left: 50px
+  .ico
+      font-size: 25px
+      display: block
+      left: 15px
+      position: absolute
+      top: 50%
+      margin-top: -15px
+      color: #fff
   .resolve-alert
     position: absolute
     right: 10px
     top: 5px
     cursor: pointer
+  &.alert-warning
+    box-shadow: 0 4px 20px 0 rgba(0,0,0,.14),0 7px 10px -5px rgba(255,152,0,.4)
+    background-color: #ff9e0f
+    color: #fff
+    border-color: #fff9c8
+  &.alert-danger
+    box-shadow: 0 4px 20px 0 rgba(0,0,0,.14),0 7px 10px -5px rgba(244,67,54,.4)
+    background-color: #f55145
+    color: #fff
+    border-color: #fccac7
+  &.alert-dark
+    box-shadow: 0 4px 20px 0 rgba(0,0,0,.14),0 7px 10px -5px rgba(115,102,101,.4)
+    background-color: #988786
+    color: #fff
+    border-color: #fccac7
+  &.alert-primary
+    box-shadow: 0 4px 20px 0 rgba(0,0,0,.14),0 7px 10px -5px rgba(156,39,176,.4)
+    background-color: #a72abd
+    color: #fff
 
 .alertToogle 
   cursor: pointer

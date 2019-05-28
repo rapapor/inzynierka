@@ -3,7 +3,7 @@ import React from 'react';
 
 import './style.sass'
 
-const cardComponent = ({ children, label, description = "opis zakładki" }) => {
+const cardComponent = ({ children, label, description = "" }) => {
   return (
 
     <div className=" col-md-12 card-container card-style">

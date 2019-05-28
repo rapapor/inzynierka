@@ -3,83 +3,100 @@
 .card-property-dashboard 
   position: relative
   margin-bottom: 40px
-  height: 450px
-  width: 350px
+  height: 350px
+  width: 450px
   display: flex
   justify-content: flex-start
   flex-direction: column
   align-items: center
   .card-property-dashboard-img
-    margin-top: 20px
-    width: 300px
-    height: 160px
+    padding: 0px 20px
+    width: 100%
+    height: 80%
     img
       width: 100%
       height: 100%
-.status
-  background: $statusBlue
-  border-radius: 10px 0px 0px 10px
-  width: 150px
-  position: absolute
-  top: 10px
-  right: 0
-  color: #fff
-  padding: 2px
-  text-align: center
-  font-size: 12px
-  cursor: pointer
-  &.for-rent
+  .status
     background: $statusBlue
-  &.rented
-    background: $statusOrange
-  &.active
-    background: $statusGreen
-  &.inactive
-    background: $statusRed
-  &:hover
-    font-size: 14px
-.property-info
-  position: relative
-  display: flex
-  justify-content: space-between
-  flex: 1
-  width: 80%
-  flex-direction: column
-  align-items: center
-  margin-top: 20px
-  .tip-property
+    width: 93%
     position: absolute
-    padding: 5px
-    top: 25px
-    background: #fff
-    color: rgba(0,0,0, 0.5)
-
-  .street
-    color: rgba(0, 0, 0, 0.5)
-    width: 100%
+    top: 0px
+    color: #fff
+    padding: 2px
     text-align: center
-    padding-bottom: 20px
-    border-bottom: 1px solid rgba(0,0,0, 0.25)
-.footer-single-cart
-  display: flex
-  flex: 1
-  width: 100%
-  align-items: flex-end
-  justify-content: space-evenly
-  .action-button
-    margin-bottom: 15px
+    font-size: 18px
+    line-height: 20px
+    border-radius: 3px
+    margin-top: -20px
+    padding: 15px
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(156, 39, 176, 0.4)
     cursor: pointer
-    img
-      border-radius: 10px
-      height: 55px
-      transform-style: preserve-3d
-      transition: all 0.5s linear
-      &:hover
-        transform: rotateY(180deg)
-        box-shadow: -5px 5px 5px #aaa
+    &.for-rent
+      background: $statusBlue
+    &.rented
+      background: $statusOrange
+    &.active
+      background: $statusGreen
+    &.inactive
+      background: $statusRed
+    &:hover
+      font-size: 14px
+  .property-info
+    position: relative
+    width: 100%
+    height: 150px
+    flex-direction: row
+    transition: height 0.4s
+    align-items: center
+    padding: 20px
+    span
+      font-size: 25px
+      color: #333333a8
+  .icon-up, .icon-down
+    position: absolute
+    right: 20px
+    bottom: 20px
+    color: #1b75bb
+    border-radius: 50%
+    background: transparent
+    font-size: 24px
+    cursor: pointer
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(57, 53, 58, 0.4)
+  .icon-down
+    bottom: 13px
+  .card-revard
+    display: none
+    padding: 20px
+    position: absolute
+    background-color: #fff
+    width: 100%
+    overflow-y: auto
+    left: 0
+    top: 100%
+    height: 106%
+    border-radius: 10px
+    z-index: 3
+    transform: translateY(0%)
+    &.true
+      display: block
+      transform: translateY(-100%)
+    .detail-label
+      font-size: 20px
+      color: #1b75bb
+    .detail-value
+      font-size: 18px
+      color: #333333a8
+  .action-container
+    display: flex
+    justify-content: space-evenly
+    align-items: center
+    height: 60px
+    .bill-action
+      cursor: pointer
+      font-size: 28px
+      color: #4CAF50
+    .trash-action
+      cursor: pointer
+      font-size: 28px
+      color: red
 
-
-@media screen and (max-width: 400px)
-  .card-property-dashboard 
-    width: 300px
-    
