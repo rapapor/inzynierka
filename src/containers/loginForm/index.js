@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './style.sass'
 import api from './../../api'
 import { Redirect } from "react-router-dom"
+import Loader from './../../components/loader'
 
 import Input from './../../components/input'
 import Button from './../../components/button'
@@ -21,6 +22,7 @@ class LoginForm extends Component {
         visibility: false,
         description: ''
       },
+      isFetching: false,
     }
   }
 
@@ -29,8 +31,8 @@ class LoginForm extends Component {
     if (reg.test(this.loginInput.current.value)) {
       this.setState({ error: { visibility: false, description: '' } })
     }
-    this.setState({ login: this.loginInput.current.value})
-    this.setState({ password: this.passInput.current.value})
+    this.setState({ login: this.loginInput.current.value })
+    this.setState({ password: this.passInput.current.value })
   }
 
   showError = (description) => {
@@ -40,12 +42,13 @@ class LoginForm extends Component {
   confirmLogIn = () => {
     const { login, password, reg } = this.state
     const { setToken } = this.props
-    
+
     if (reg.test(login)) {
       let user = {
         username: login,
         password: password,
       }
+      this.setState({ isFetching: true })
       api.login(user).then(res => {
         setToken(res.token)
         window.location.replace('/estate/')
@@ -57,14 +60,15 @@ class LoginForm extends Component {
     else {
       this.showError('Zły format email')
     }
-    
+
   }
-  render(){
-    if (this.props.token){
+  render() {
+    const { isFetching } = this.state
+    if (this.props.token) {
       return (
-      <Redirect to="/estate/" />
-    )
-  }
+        <Redirect to="/estate/" />
+      )
+    }
     return (
       <div className='login-form'>
         <div className='login-form-input-content'>
@@ -83,12 +87,13 @@ class LoginForm extends Component {
             value={this.state.password}
           />
         </div>
-      <Button
-        label={'Zaloguj'}
-        type={'accept'}
-        onClick={this.confirmLogIn}
-        customStyle={{width: '200px'}}
-      />
+        {isFetching ? <Loader /> :
+          <Button
+            label={'Zaloguj'}
+            type={'accept'}
+            onClick={this.confirmLogIn}
+            customStyle={{ width: '200px' }}
+          />}
       </div>
     )
   }

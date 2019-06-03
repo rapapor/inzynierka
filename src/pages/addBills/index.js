@@ -7,6 +7,7 @@ import * as moment from 'moment';
 import api from './../../api'
 import ContentWrapper from './../../components/contentWrapper'
 import swal from '@sweetalert/with-react'
+import Loader from './../../components/loader'
 import './style.sass'
 
 class AddBills extends Component {
@@ -96,6 +97,7 @@ class AddBills extends Component {
       trash: {},
       repairFund: {}
     },
+    isFetching: false,
     myBills: this.initialMyBills
   }
   
@@ -124,8 +126,10 @@ class AddBills extends Component {
   genInvoice = (billID) => {
     const {propertyID, myFlat} =this.state
     if(myFlat.propertyStatus === "RENTED") {
+      this.setState({isFetching: true})
       api.createInvoice(propertyID, billID).then(res => {
         if(res && res.status === 200 ) {
+          this.setState({isFetching: false})
           swal({
             title: "Brawo!!",
             text: "Wygenerowałeś fakturę, to twój kolejny przychód",
@@ -138,6 +142,7 @@ class AddBills extends Component {
             )
           })
         } else {
+          this.setState({isFetching: false})
           swal({
             title: "Coś poszło nie tak",
             text: "Bardzo przepraszamy niestety nie udało się wygenerować faktury, spróbuj ponownie",
@@ -150,6 +155,7 @@ class AddBills extends Component {
         }
       })
     } else {
+      this.setState({isFetching: false})
       swal({
         title: "Mieszkanie nie jest wynajęte",
         text: "Aby wystawić fakturę najpierw przypisz najemcę do mieszkania",
@@ -279,7 +285,7 @@ class AddBills extends Component {
   onFormSubmit = () => {
     const { startDate, formData, amountTab, propertyID, myFlat} = this.state
     let dateToSend = moment(startDate).format('YYYY/MM/DD');
-    this.setState({ formData: this.initialStateForm})
+    this.setState({ formData: this.initialStateForm, isFetching: true})
     const dataToSend = {
       coldWater: {
         amount: amountTab.coldWater.amount,
@@ -388,7 +394,7 @@ class AddBills extends Component {
           this.setState(this.InitialState )
         })
       }
-      this.setState({myBills: this.initialMyBills, amountTab: this.initialStateForm})
+      this.setState({myBills: this.initialMyBills, amountTab: this.initialStateForm, isFetching: false})
       this.loadProperty(propertyID)
     }).catch(error => {
       console.log(error)
@@ -396,9 +402,10 @@ class AddBills extends Component {
   }
 
   render(){
-    const { myFlat, myBills } = this.state
+    const { myFlat, myBills, isFetching } = this.state
     return (
       <React.Fragment>
+      {isFetching && <Loader absolute="true"/>}
       <Menu />
       <ContentWrapper>
       <section className="col-sm-12">

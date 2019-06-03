@@ -6,6 +6,7 @@ import Input from './../../components/input'
 import Textarea from './../../components/textArea'
 import api from './../../api'
 import swal from '@sweetalert/with-react'
+import Loader from './../../components/loader'
 
 
 import './style.sass'
@@ -34,7 +35,8 @@ class AddProperty extends Component {
     },
     term: '',
     items: [],
-    images: []
+    images: [],
+    isFetching: false
   }
   constructor(props) {
     super(props)
@@ -98,7 +100,9 @@ class AddProperty extends Component {
   onFormSubmit = () => {
     const {property, items, images} = this.state
     var token = localStorage.getItem('token')
+    this.setState({isFetching: true})
     api.createProperty(property, token, items, images).then(res => {
+      this.setState({isFetching: false})
       if(res.status === 200 ) {
         swal({
           title: "Dodałeś Nieruchomość!",
@@ -109,6 +113,7 @@ class AddProperty extends Component {
           this.setState(this.InitialState)
         });
       } else {
+        this.setState({isFetching: false})
         swal({
           title: "Coś poszło nie tak",
           text: "Bardzo przepraszamy niestety nie udało się dodać nieruchomości, spróbuj ponownie",
@@ -167,12 +172,15 @@ class AddProperty extends Component {
     };
 }
   render(){
+    const {isFetching} = this.state
     if(!localStorage.getItem('token')){
       return (
         <Redirect to="/login/" />
       )
     }
     return (
+      <React.Fragment>
+      {isFetching && <Loader absolute="true"/>}
       <div className="addProperty-container">
         <div className="addProperty-form">
           <div className="row col-12 flex-0">
@@ -360,6 +368,7 @@ class AddProperty extends Component {
           </div>
         </div>
       </div>
+      </React.Fragment>
     )
   }
 }

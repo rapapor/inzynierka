@@ -4,6 +4,7 @@ import api from './../../api'
 import Input from './../../components/input'
 import Button from './../../components/button'
 import swal from '@sweetalert/with-react'
+import Loader from './../../components/loader'
 
 import CardComponent from './../../components/cardComponent'
 import './style.sass'
@@ -28,7 +29,8 @@ class Tenant extends Component {
       myFlats: [],
       myTenant: [],
       actualPhoto: '',
-      thumbnailPath: false
+      thumbnailPath: false,
+      isFetching: false,
     }
   }
 
@@ -109,7 +111,9 @@ class Tenant extends Component {
         id: propertyId
       }
     }
+    this.setState({isFetching: true})
     api.createTenant(tenant, token).then(res => {
+      this.setState({isFetching: false})
       if (res && res.status === 200) {
         swal({
           title: "Dodałeś Nowego najemce!",
@@ -121,6 +125,7 @@ class Tenant extends Component {
           this.loadTenant()
         });
       } else {
+        this.setState({isFetching: false})
         swal({
           title: "Coś poszło nie tak",
           text: "Bardzo przepraszamy niestety nie udało się dodać najemcy, spróbuj ponownie",
@@ -163,7 +168,7 @@ class Tenant extends Component {
   }
 
   render() {
-    const { myFlats, myTenant, thumbnailPath } = this.state
+    const { myFlats, myTenant, thumbnailPath, isFetching } = this.state
     if (!localStorage.getItem('token')) {
       return (
         <Redirect to="/login/" />
@@ -171,6 +176,7 @@ class Tenant extends Component {
     }
     return (
       <React.Fragment>
+        {isFetching && <Loader absolute="true"/>}
         <CardComponent label={"Twoi najemcy"}>
           <table className="table table-striped">
             <thead className="text-primary">
