@@ -88,6 +88,7 @@ class Property extends Component {
       img={flat.imagesUrls[0]}
       status={{text: statusText, color: status}}
       key={flat.id}
+      id={flat.id}
       onDelete={this.deleteProperty}
       onChangeStatus={this.handleChangeStatus}
       onClickBills={this.addBills}

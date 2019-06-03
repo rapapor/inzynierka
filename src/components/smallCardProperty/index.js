@@ -45,10 +45,10 @@ class SmallCardProperty extends Component {
           </div>
           <div className="col-12 row action-container">
             <span  onClick={() => onClickBills(flat.id)}>
-              <i class='fas fa-comment-dollar bill-action'></i>
+              <i className='fas fa-comment-dollar bill-action'></i>
             </span>
             <span onClick={() => onDelete(flat.id)} >
-              <i class='fas fa-trash-alt trash-action'></i>
+              <i className='fas fa-trash-alt trash-action'></i>
             </span>
           </div>
         </div>
